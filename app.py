@@ -23,7 +23,7 @@ import hydralit_components as hc
 import hydralit as hy
 # a dedicated single loader 
 with hc.HyLoader('Now doing loading',hc.Loaders.pulse_bars,):
-    time.sleep(5)
+    time.sleep()
 
 app = hy.HydraApp(title='Simple Multi-Page App')
 
