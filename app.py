@@ -15,7 +15,7 @@ import bokeh.models
 import bokeh.plotting
 import markdown
 import hydralit_components as hc
-
+import time
 #@st.cache
 
 #when we import hydralit, we automatically get all of Streamlit
@@ -24,18 +24,12 @@ import hydralit as hy
 app = hy.HydraApp(title='Diwan')
 
 
-
-
-import time
 my_bar = st.progress(0)
-
-
 # progress bar continues to complete from 0 to 100
 for percent_complete in range(100):
     time.sleep(0.1)
-st.write('It is Loading')
     my_bar.progress(percent_complete + 1)
-st.write('It is Loaded')
+st.write('Done Loading')
 
 st.balloons()
 
