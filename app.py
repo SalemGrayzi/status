@@ -95,9 +95,7 @@ tdc=px.line(df, y=df['Time to deploy'].value_counts(),x=df['Time to deploy'].val
 #addy.columns = ['Adress', 'count']
 #addresss = px.bar(addy, y='Adress', x = 'count')
 ######################################
-dincome = px.histogram(df, y="Day Name",x=df['Amount'].mean())
-dincome.update_layout(yaxis={'categoryorder':'total ascending'})
-dincome
+
 #PDA = st.sidebar.selectbox('Employee Related Analysis',
 #                                    ['None','Pickers','Picker and Order Status','PDA Usage','Drivers','All'])
 #if PDA == 'Pickers':
