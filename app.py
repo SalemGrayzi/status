@@ -129,9 +129,10 @@ dincome.update_layout(title="Average Revenue Per Day",xaxis_title="Amount",yaxis
 
 @app.addapp(is_home=True,icon='🏪')
 def Home():
- hy.info('Hello from app1')
- st.write('hello this is the intro')
  st.title('Diwan Delivery Analysis')
+ st.header('This is a header')
+ st.subheader('This is a subheader')
+ st.markdown("### This is a markdown")
  head = st.checkbox('First Few Rows')
  amount = st.checkbox("Amount Received in LBP")
  if st.checkbox('Show all graphs'):
