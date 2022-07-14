@@ -25,13 +25,18 @@ app = hy.HydraApp(title='Diwan')
 
 
 
+
 import time
+my_bar = st.progress(0)
 
-my_bar = st.progress(0.)
 
+# progress bar continues to complete from 0 to 100
 for percent_complete in range(100):
-     time.sleep(0.1)
-     my_bar.progress(percent_complete + 1)
+    time.sleep(0.1)
+    st.write('It is Loading')
+    my_bar.progress(percent_complete + 1)
+st.write('It is Loaded')
+
 st.balloons()
 
 df= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Statuscsv.csv')
