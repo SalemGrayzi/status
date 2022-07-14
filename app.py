@@ -25,7 +25,13 @@ app = hy.HydraApp(title='Diwan')
 
 
 
+import time
 
+my_bar = st.progress(0.)
+
+for percent_complete in range(100):
+     time.sleep(0.1)
+     my_bar.progress(percent_complete + 1)
 st.balloons()
 
 df= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Statuscsv.csv')
@@ -41,10 +47,9 @@ df['OnlineApp'] = df['OnlineApp'].map(
 
 #st.checkbox('First Few Rows',st.write(df.head()))
 ######################################
-Day=px.histogram(df, y= "Day Name",x= df["Day Name"].index,histfunc='avg',text_auto=True)
+Day=px.histogram(df, y= "Day Name",text_auto=True)
 Day.update_layout(yaxis={'categoryorder':'total ascending'})
-Day.update_layout(title="Average Orders per Day",xaxis_title="",yaxis_title="Day")
-
+Day.update_layout(title="Orders per Day in a Year",xaxis_title="",yaxis_title="Day")
 
 ######################################
 driver=px.histogram(df, y="Driver Name", text_auto=True)
