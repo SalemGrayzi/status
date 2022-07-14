@@ -23,6 +23,7 @@ import hydralit as hy
 
 app = hy.HydraApp(title='Diwan')
 
+
 my_bar = st.progress(0)
 # progress bar continues to complete from 0 to 100
 for percent_complete in range(100):
@@ -36,14 +37,13 @@ df= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Statu
 df['Address'] =  df['Address'].fillna('بشامون')
 df.drop(['Order No_','Phone No_','Receipt No','Company'], axis = 1, inplace = True)
 df.drop_duplicates(inplace=True)
-#df['Amount'] = df.apply(lambda x: "{:,}".format(x['Amount']), axis=1)
+
 df['Handheld Used'] = df['Handheld Used'].map(
                    {True:'Used PDA' ,False:"Didn't Use PDA"})
 df['OnlineApp'] = df['OnlineApp'].map(
                    {True:'Application' ,False:'Phone Call'})
 
 
-#st.checkbox('First Few Rows',st.write(df.head()))
 ######################################
 Day=px.histogram(df, y= "Day Name",text_auto=True)
 Day.update_layout(yaxis={'categoryorder':'total ascending'})
@@ -81,8 +81,7 @@ pdapicker = sns.catplot(
      palette=['tab:red', 'tab:blue'], alpha=.6,height=6,order=df['PickerName'].value_counts().index
 )
 pdapicker.set(title ="Usage of PDA per Picker", ylabel='Picker')
-#pdapicker.fig.suptitle("Usage of PDA per Picker")
-#pdapicker.set_axis_labels(x_var="", y_var="Picker")
+
 ######################################
 stpk = px.histogram(df, y="PickerName", color="Status",barnorm = "percent",hover_data=["Status"])
 stpk.update_layout(yaxis={'categoryorder':'total ascending'})
@@ -125,14 +124,11 @@ dincome = px.histogram(df, y="Day Name",x='Amount', histfunc='avg',text_auto=Tru
 dincome.update_layout(yaxis={'categoryorder':'total ascending'})
 dincome.update_layout(title="Average Revenue Per Day",xaxis_title="Amount",yaxis_title="Day Name")
 
-
+#15
 
 @app.addapp(is_home=True,icon='🏪')
 def Home():
  st.title('Diwan Delivery Analysis')
- st.header('This is a header')
- st.subheader('This is a subheader')
- st.markdown("### This is a markdown")
  head = st.checkbox('First Few Rows')
  amount = st.checkbox("Amount Received in LBP")
  if st.checkbox('Show all graphs'):
@@ -171,6 +167,11 @@ def Home():
      st.write("Amount received" , df.loc[df['Status'] == 'Delivered'].Amount.sum() , "in LBP from customers" , "and lost sales due to cancelation", df.loc[df['Status'] == 'Canceled'].Amount.sum())
  if head:
      st.write(df.head())
+ st.header('This is a header')
+ st.subheader('This is a subheader')
+ st.markdown("### This is a markdown")
+ st.write('sdfhsd ihjsd l')
+############################################################################
 
 @app.addapp(title='Employee Related Analysis',icon='💼')
 def app2():
@@ -207,10 +208,10 @@ def app2():
         pda
         stpk
         st.pyplot(gh)
-
-
  elif PDA1 == 'None':
         st.write(str(''))
+#6
+############################################################################
 
 @app.addapp(title='Application or Call Analysis',icon='📲')
 def app3():
@@ -230,11 +231,14 @@ def app3():
  elif App == 'None':
      st.write(str(''))
 
+#3
+############################################################################
+
 @app.addapp(title='Customer Analysis',icon='📈')
 def app4():
  hy.info('Hello from app 2')
  App = hy.selectbox('Customer Analysis',
-                                     ['None','Days','Revenue Per Customer','deploy','time','Address','All'])
+                                     ['None','Days','Revenue Per Customer','deploy','time','Address','Average Revenue Per Day','All'])
 
  if App == 'Revenue Per Customer':
      n_size = st.slider('Top n Customers', 0, 90, 5)
@@ -249,6 +253,8 @@ def app4():
      tc
  elif App == 'Days':
      Day
+ elif App == 'Average Revenue Per Day':
+     dincome
  elif App == 'Address':
      slides = st.slider('Top n Locations', 0, 90, 5)
      addy = df.groupby(['Address']).size().to_frame().sort_values([0], ascending = False).head(slides).reset_index()
@@ -272,6 +278,7 @@ def app4():
      addresss = px.bar(addy, y='Adress', x = 'count',text_auto=True)
      addresss.update_layout(title="Demand per Area",xaxis_title="",yaxis_title="Location")
      addresss
+     dincome
  elif App == 'None':
      st.write(str(''))
 
