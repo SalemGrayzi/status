@@ -33,7 +33,7 @@ st.write('Done Loading')
 
 st.balloons()
 
-df= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Statuscsv.csv')
+df= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Statuscsv%20-%20Copy.csv')
 df['Address'] =  df['Address'].fillna('بشامون')
 df.drop(['Order No_','Phone No_','Receipt No','Company'], axis = 1, inplace = True)
 df.drop_duplicates(inplace=True)
@@ -164,7 +164,7 @@ def Home():
     addresss
     dincome
  if amount:
-     st.write("Amount received" , df.loc[df['Status'] == 'Delivered'].Amount.sum() , "in LBP from customers" , "and lost sales due to cancelation", df.loc[df['Status'] == 'Canceled'].Amount.sum())
+     st.write("Revenue Received" , df.loc[df['Status'] == 'Delivered'].Amount.sum() , "in LBP from customers" , "and lost sales due to cancelation", df.loc[df['Status'] == 'Canceled'].Amount.sum())
  if head:
      st.write(df.head())
  st.header('This is a header')
