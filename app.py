@@ -22,7 +22,6 @@ import time
 import hydralit as hy
 
 app = hy.HydraApp(title='Diwan')
-@st.cache
 
 my_bar = st.progress(0)
 # progress bar continues to complete from 0 to 100
