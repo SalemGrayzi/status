@@ -41,9 +41,10 @@ df['OnlineApp'] = df['OnlineApp'].map(
 
 #st.checkbox('First Few Rows',st.write(df.head()))
 ######################################
-Day=px.histogram(df, y= "Day Name",histfunc='avg',text_auto=True)
+Day=px.histogram(df, y= "Day Name",x= df["Day Name"].index,histfunc='avg',text_auto=True)
 Day.update_layout(yaxis={'categoryorder':'total ascending'})
 Day.update_layout(title="Average Orders per Day",xaxis_title="",yaxis_title="Day")
+
 
 ######################################
 driver=px.histogram(df, y="Driver Name", text_auto=True)
