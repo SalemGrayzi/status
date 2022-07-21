@@ -16,8 +16,7 @@ import bokeh.plotting
 import markdown
 import hydralit_components as hc
 import time
-from streamlit_metrics import metric, metric_row
-
+from st_card import st_card
 #@st.cache
 
 #when we import hydralit, we automatically get all of Streamlit
@@ -131,12 +130,7 @@ dincome.update_layout(title="Average Revenue Per Day",xaxis_title="Amount",yaxis
 @app.addapp(is_home=True,icon='🏪')
 def Home():
  st.title('Diwan Delivery Analysis')
- metric_row(
-    {
-        "Revenue Received From Customers": df.loc[df['Status'] == 'Delivered'].Amount.sum(),
-        "Lost Sales Due cancelation": df.loc[df['Status'] == 'Canceled'].Amount.sum()
-    }
-)
+ st_card('Completed Orders', value=df.loc[df['Status'] == 'Delivered'].Amount.sum())
 
  head = st.checkbox('First Few Rows')
  amount = st.checkbox("Amount Received in LBP")
