@@ -237,7 +237,8 @@ def app3():
 
 @app.addapp(title='Customer Analysis',icon='📈')
 def app4():
- hy.info('Hello from app 2')
+ st.metric(label="Revenue in LBP", value=df.loc[df['Status'] == 'Delivered'].Amount.sum(), delta_color="inverse")
+ st.metric(label="Lost Sales in LBP", value=df.loc[df['Status'] == 'Canceled'].Amount.sum(), delta_color="inverse")
  App = hy.selectbox('Customer Analysis',
                                      ['None','Days','Revenue Per Customer','deploy','time','Address','Average Revenue Per Day','All'])
 
