@@ -237,7 +237,7 @@ def app3():
 
 @app.addapp(title='Customer Analysis',icon='📈')
 def app4():
- col1, col2, col3 = st.columns(2)
+ col1, col2 = st.columns(2)
  col1.metric(label="Revenue in LBP", value=df.loc[df['Status'] == 'Delivered'].Amount.sum(), delta_color="inverse")
  col2.metric(label="Lost Sales in LBP", value=df.loc[df['Status'] == 'Canceled'].Amount.sum(), delta_color="inverse")
  App = hy.selectbox('Customer Analysis',
