@@ -255,8 +255,10 @@ def app3():
  if App == 'App vs. Call Revenues':
      onmount
      onmount2
+     st.write('Here we see the ratio for each ordering method with revenue generated as well as lost sales. As we can see 79.2% of generated revenue is coming from phone calls compared to 20.8% from applications. Now lost sales from phone calls are 73.6% compared to 26.4% from the application. There is about a 6% difference between revenues and lost sales between both ordering methods.')
  elif App == 'Status of Delivery Using App':
      sto
+     st.write('The ratio between delivered and canceled between the two ordering methods is significant as we can see phone calls have a higher probability to be canceled compared to applications. This could indicate an issue in the call center resulting in more canceled orders.')
  elif App == 'All':
      onmount
      onmount2
@@ -276,7 +278,7 @@ def app4():
  col1.metric(label="Revenue in LBP", value=df.loc[df['Status'] == 'Delivered'].Amount.sum(), delta_color="inverse")
  col2.metric(label="Lost Sales in LBP", value=df.loc[df['Status'] == 'Canceled'].Amount.sum(), delta_color="inverse")
  App = hy.selectbox('Customer Analysis',
-                                     ['None','Days','Revenue Per Customer','deploy','time','Address','Average Revenue Per Day','All'])
+                                     ['None','Days','Revenue Per Customer','Wait Time to Deploy','Time of Incoming Orders','Address','Average Revenue Per Day','All'])
 
  if App == 'Revenue Per Customer':
      n_size = st.slider('Top n Customers', 0, 90, 5)
@@ -285,14 +287,19 @@ def app4():
      amc=px.histogram(data_frame=dfna, x='Amount', y='Name',text_auto=True)
      amc.update_layout(title="Revenue of Customers",xaxis_title="",yaxis_title="Name of Customer")
      amc
- elif App == 'deploy':
+     st.write('This visual is important for Diwan to find its highest revenue generated customers, as this assists Diwan in implementing a loyalty program for their customers. Using the filter we are able to find the top # of customers and their respectable revenues.')
+ elif App == 'Wait Time to Deploy':
      tdc
- elif App == 'time':
+     st.write('On average there is an 80-minute wait to deploy an order, but the majority are between 44 and 58-minutes. This shows us the distribution of wait times before an order is deployed as this is important to achieve a better service level and compete with other competitors.')
+ elif App == 'Time of Incoming Orders':
      tc
+     st.write('Understanding when orders are coming in is important to allocate the right human resource, as we can see between 10 am and 2 pm we can see most orders are coming in then declining at a steady rate.')
  elif App == 'Days':
      Day
+     st.write('Throughout the week we can see that demand is constant except for Monday with the highest demand and Friday with the lowest demand but on average there is a 100 order difference between the days.')
  elif App == 'Average Revenue Per Day':
      dincome
+     st.write('Days with high demand don’t necessarily mean the highest revenue generated days on average as this graph illustrates. Wednesday has the highest revenue compared to Friday with little variation between each day.')
  elif App == 'Address':
      slides = st.slider('Top n Locations', 0, 90, 5)
      addy = df.groupby(['Address']).size().to_frame().sort_values([0], ascending = False).head(slides).reset_index()
@@ -300,6 +307,7 @@ def app4():
      addresss = px.bar(addy, y='Adress', x = 'count',text_auto=True)
      addresss.update_layout(title="Demand per Area",xaxis_title="",yaxis_title="Location")
      addresss
+     st.write('Due to the location of Diwan, most orders are coming in from Bchamoun, followed by Aramoun, and finally Khaldeh. This is due to the prime location that enables Diwan to service these 3 major areas. These are the top 5 locations that are shown but can be changed to top # using the filter above.')
  elif App == 'All':
      n_size = st.slider('Top n Customers', 0, 90, 5)
      dfna = df.groupby("Name", as_index=False).sum().sort_values("Amount", ascending=False).head(n_size)
@@ -319,8 +327,10 @@ def app4():
      dincome
  elif App == 'None':
      st.write(str(''))
-
-
+#########################################################
+@app.addapp(title='About',icon='')
+def app5():
+ st.write('test')
 
 
 #Run the whole lot, we get navbar, state management and app isolation, all with this tiny amount of work.
