@@ -328,10 +328,17 @@ def app4():
  elif App == 'None':
      st.write(str(''))
 #########################################################
-@app.addapp(title='About',icon='')
+@app.addapp(title='About',icon='🤵')
 def app5():
- st.write('test')
-
+ st.write('This dashboard was made possible by Salem Gr., for Diwan Hyper Market located in Lebanon, Old Saida Road Chouaifet. The dashboard was built to help analyze Diwan’s delivery sector to assist them in lowering wait time and show data collected to make managerial decisions to improve their service levels.')
+ st.write('I am an AUB graduate studying to become a data analyst by using the methods learned at AUB to solve real-world problems and assist companies in understanding the data they acquired to find issues or ways to improve in this competitive world. With the power of data analysis and my undergraduate degree in International Business and management finding and understanding issues are up my field of expertise, with this dashboard and report being proof of what these degrees can output.')
+ st.write('Feel free to contact me for any future project using one of the following methods described below')
+ if(st.button("Contact Information")):
+    st.markdown("Phone Number (Lebanon): +961 78 810 351")
+    st.markdown("Phone Number (U.S.): +1 786 609 0482")
+    st.markdown("Email Address: shg09@mail.aub.edu")
+    link2 = '[linkedin] https://www.linkedin.com/in/salemgr/'
+    st.markdown(link2, unsafe_allow_html=True)
 
 #Run the whole lot, we get navbar, state management and app isolation, all with this tiny amount of work.
 app.run()
