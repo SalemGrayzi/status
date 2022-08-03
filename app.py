@@ -331,7 +331,7 @@ def app4():
 @app.addapp(title='About',icon='🤵')
 def app5():
  st.write('This dashboard was made possible by Salem Gr., for Diwan Hyper Market located in Lebanon, Old Saida Road Chouaifet. The dashboard was built to help analyze Diwan’s delivery sector to assist them in lowering wait time and show data collected to make managerial decisions to improve their service levels.')
- st.write('I am an AUB graduate studying to become a data analyst by using the methods learned at AUB to solve real-world problems and assist companies in understanding the data they acquired to find issues or ways to improve in this competitive world. With the power of data analysis and my undergraduate degree in International Business and management finding and understanding issues are up to my field of expertise. This dashboard and related report are proof of what my degrees can offer for you.')
+ st.write('I am an AUB graduate studying to become a data analyst by using the methods learned at AUB to solve real-world problems and assist companies in understanding the data they acquired to find issues or ways to improve in this competitive world. With the power of data analysis and my undergraduate degree in International Business and management finding and understanding issues are up to my field of expertise. This dashboard and related report are proof of what my combined degrees can offer you.')
  st.write('Feel free to contact me for any future project using one of the following methods described below')
  if(st.button("Contact Information")):
     st.markdown("Phone Number (Lebanon): +961 78 810 351")
