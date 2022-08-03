@@ -196,6 +196,9 @@ def Home():
      file_name='Queuing_Model.csv',
      mime='text/csv',
   )
+ st.write('For the full analysis press the following link to be redirected to the report')
+ link1 = '[Full Report]https://drive.google.com/uc?export=download&id=1xiEgoeXq9oxBc4ZQELjsY36mHyrbHFXV'
+ st.markdown(link1, unsafe_allow_html=True)
 ############################################################################
 
 @app.addapp(title='Employee Related Analysis',icon='💼')
@@ -212,7 +215,7 @@ def app2():
         st.write('From this graph we can analyze that 44.3% of pickers are using PDAs compared to 55.7% of them not using PDA. This shows that we should find a way to push the usage of PDAs across the pickers.')
  elif PDA1 == 'Picker and Order Status':
         stpk
-        st.write('In this graph we can see the proportions of each picker from their total orders based on cancelation, and completed orders. The Blue shows the orders that have been completed comapared to red which shows the cancelations. As we can see there are couple of pickers that have a higher probability of their orders being canceled this is why we need to get to the buttom of the issue to fix it.')
+        st.write('In this graph we can see the proportions of each picker from their total orders based on cancelation, and completed orders. The Blue shows the orders that have been completed comapared to red which shows the cancelations. As we can see there are couple of pickers that have a higher probability of their orders being canceled this is why we need to get to the bottom of the issue to fix it.')
  elif PDA1 == 'Drivers':
 #        driver
         split_size = st.slider('Top n Drivers', 0, 90, 5)
@@ -224,7 +227,7 @@ def app2():
         st.write('This graph shows the number of orders each driver has done throughout the year, with a filter where you can look at the top # of drivers based on the number of orders.')
  elif PDA1 == 'PDA and Status of Order':
         st.pyplot(gh)
-        st.write('This graph is very important as it shows us how does PDA affect the order status. As we can see orders that were canceled with the usage of PDA has a much lower ratio compared to not using PDAs. Eventhough delivered orders are similar to each other but with cancelation there is a big difference between them.')
+        st.write('This graph is very important as it shows us how does PDA affect the order status. As we can see orders that were canceled with the usage of PDA has a much lower ratio compared to not using PDAs. Even though delivered orders are similar to each other but with cancelation there is a big difference between them.')
 
  elif PDA1 == 'All':
         st.pyplot(pdapicker)
