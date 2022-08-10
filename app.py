@@ -26,7 +26,7 @@ for percent_complete in range(100):
     my_bar.progress(percent_complete + 1)
 st.write('Done Loading')
 
-st.balloons()
+#st.balloons()
 
 df= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Statuscsv.csv')
 df['Address'] =  df['Address'].fillna('بشامون')
