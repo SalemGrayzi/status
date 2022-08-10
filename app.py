@@ -2,7 +2,6 @@
 import pandas as pd
 import numpy as np
 import streamlit as st
-@st.cache()
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -371,6 +370,8 @@ def app4():
 # End of tab 4
 
 ######################################################### Building tab 5
+@st.cache()
+
 @app.addapp(title='Queuing Model ',icon='⌚') ### This tab was built to explain who the person behind all this
 
 def app5():
