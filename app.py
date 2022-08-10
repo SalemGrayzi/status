@@ -399,30 +399,27 @@ with st.form(key='form1'):
     emp = col11.number_input('Insert number of Pickers', min_value=1, step=1)
     orde= col22.number_input('Insert Orders per Hour')
     cap = col33.number_input('Insert Capacity per Picker')
-    st.form_submit_button('press to calculate')
-
-#result = orde/(emp*cap)
-
-try:
-    result = orde/(emp*cap)
-except ZeroDivisionError:
-    result = 0
-
-print(result)
-
-if result < 0 :
-    st.error('negative result')
-else:
-    st.write(f'Utilization of pickers {round(result*100,2)}')
-    sc=(result**np.sqrt(2*(emp+1)))/orde
     try:
-        uf=1/(1-(orde/(emp*cap)))
+        result = orde/(emp*cap)
     except ZeroDivisionError:
-        uf = 0
-    mint=uf*sc
-    wait=mint*60
-    dp=st.write(f'On average minute {round(wait, 2)} before order deployment')
+        result = 0
 
+    print(result)
+    
+    if (result < 0 or result > 1) :
+        st.error('negative result')
+    else:
+        st.write(f'Utilization of pickers {round(result*100,2)}')
+        sc=(result**np.sqrt(2*(emp+1)))/orde
+        try:
+            uf=1/(1-(orde/(emp*cap)))
+        except ZeroDivisionError:
+            uf = 0
+        mint=uf*sc
+        wait=mint*60
+        dp=st.write(f'On average minutes {round(wait, 2)} before order deployment')
+
+    st.form_submit_button('press to calculate')
 
 #u=orde/(emp*cap)
 
