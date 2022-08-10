@@ -27,9 +27,9 @@ for percent_complete in range(100):
 st.write('Done Loading')
 
 st.balloons()
-@st.cache()
+@st.cache(df= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Statuscsv.csv'))
 ### Importing csv file from github onto streamlit
-df= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Statuscsv.csv')
+#df= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Statuscsv.csv')
 
 ### Filling missing values in Adress column with the mode
 df['Address'] =  df['Address'].fillna('بشامون')
