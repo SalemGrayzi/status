@@ -120,17 +120,17 @@ onmount2.update_layout(title="Lost Sales of Ordering Method")
 #amc=px.histogram(data_frame=dfna, x='Amount', y='Name')
 
 ###################################### ORder status based on order methods
-st.cache
+st.cache()
 sto=px.histogram(df, y="Status", color="OnlineApp",text_auto=True)
 sto.update_layout(title="Status of Order per Ordering Method",xaxis_title="",yaxis_title="Status of Order")
 
 ###################################### Time of incoming orders in a day
-st.cache
+st.cache()
 tc=px.line(df, y=df['Time Created'].value_counts(),x=df['Time Created'].value_counts().index)
 tc.update_layout(title="Time of Incoming Orders",xaxis_title="Time of Order",yaxis_title="")
 
 ###################################### Time it takes for an order to deploy
-st.cache
+st.cache()
 tdc=px.line(df, y=df['Time to deploy'].value_counts(),x=df['Time to deploy'].value_counts().index)
 tdc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Hours and Minutes",yaxis_title="")
 
@@ -141,7 +141,7 @@ tdc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Hours and
 #addresss = px.bar(addy, y='Adress', x = 'count')
 
 ###################################### Average revenue per day
-st.cache
+st.cache()
 dincome = px.histogram(df, y="Day Name",x='Amount', histfunc='avg',text_auto=True)
 dincome.update_layout(yaxis={'categoryorder':'total ascending'})
 dincome.update_layout(title="Average Revenue Per Day",xaxis_title="Amount",yaxis_title="Day Name")
