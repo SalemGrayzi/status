@@ -370,9 +370,78 @@ def app4():
 # End of tab 4
 
 ######################################################### Building tab 5
-@app.addapp(title='About',icon='🤵') ### This tab was built to explain who the person behind all this
+@app.addapp(title='Queuing Model ',icon='⌚') ### This tab was built to explain who the person behind all this
 
 def app5():
+ st.header('Interactive Queuing Model')
+ st.write('The queuing model considers 6 variables, this is due to the flexibility of the model and can be used for other processes in the organization, but in the scope of the capstone we will focus on the delivery sector. The variables are:')
+ st.write('1-	Number of pickers in the system')
+ st.write('2-	Incoming orders per hour')
+ st.write('3-	Pickers capacity which is calculated by 60 minutes divided by how many minutes a picker takes on average to deploy an order')
+ st.write('4-	Picker’s salary per hour to get total cost')
+ st.write('5-	Cost of call per minute to get total cost of waiting')
+ st.write('6-	The LBP exchange rate as it is exchanging constantly')
+ st.write('After inserting the variables into the specified area the model would return:')
+ st.write('•	Utilization of pickers')
+ st.write('•	Average amount of wait before deploying an order')
+ st.write('•	Labor cost with the number of specified pickers and their cost per hour')
+ st.write('•	Call cost of customers who are waiting in the system')
+ st.write('•	Total cost of labor, and call')
+ st.write('•	Lastly converting it to U.S.D')
+
+ def my_value(number):
+     return ("{:,}".format(number)) # a function to format numbers to have commas in them
+
+ col11, col22, col33, col44, col55, col66 = st.columns(6) # creating 6 columns to put all the input boxes next to each other
+
+
+ with st.form(key='form1'): # enabling the model to calculate after button is pressed
+ # putting various number inputs for the calculations
+    emp = col11.number_input('Number of Pickers', value=14,min_value=1, step=1)
+    orde= col22.number_input('Orders per Hour',value=10)
+    cap = col33.number_input("Picker's Capacity per Hour",value=.75)
+    costp = col44.number_input("Picker's Salary per Hour",value=16203.70)
+    costc = col55.number_input('Cost of Call per Minute',value=0.004,format="%.5f")
+    rate = col66.number_input('Insert LBP Exchange Rate',value=29500)
+
+    try:
+        result = orde/(emp*cap)
+    except ZeroDivisionError: # error will appear if zero division error appears
+        result = 0 # then returning 0 as output
+
+    print(result)
+
+    if (result < 0 or result > 1) : #if Utilization is less than 0 and greater than 1 returns an error
+        st.error('negative result')
+    else:
+        st.write(f'Utilization of pickers {round(result*100,2)}%') # Rounding Utilization and turning it into percent
+        sc=(result**np.sqrt(2*(emp+1)))/orde # formula to calculate the first part of the equation using the numbers that have been input
+        try:
+            uf=1/(1-(orde/(emp*cap)))
+        except ZeroDivisionError: # error will appear if zero division error appears
+            uf = 0# then returning 0 as output
+        mint=uf*sc # calculating orders per minute
+        wait=mint*60 # then turning it into hours
+        dp=st.write(f'On average minutes {round(wait, 2)} before order deployment') # writing the results of minutes on average
+        lc=costp*emp # calculating labor costs
+        wc=costc*60 # calculating the cost of call per hour
+        wcr=wc*rate # turning it into the black market exhange of LBP
+        wcrr=mint*wcr*orde # total cost of call per hour
+        total=lc+wcrr # total cost of labor and call
+        # Writing the results from the calculations
+        st.write(f'Labor cost for {emp} pickers would be {my_value(round(lc))} LBP per hour')
+        st.write(f'Call cost for {orde} customers waiting would be {my_value(round(wcrr))} LBP per hour')
+        st.write(f'Total cost would be {my_value(round(total))} LBP per hour')
+        totalusd=total/rate
+        st.write(f'Total cost in U.S.D would be ${round(totalusd,2)} per hour')
+    st.form_submit_button('Press to calculate') #button to be pressed to initiate calculating
+
+# End of tab 5
+
+######################################################### Building tab 6
+@app.addapp(title='About',icon='🤵') ### This tab was built to explain who the person behind all this
+
+def app6():
  st.write('This dashboard was made possible by Salem Gr., for Diwan Hyper Market located in Lebanon, Old Saida Road Chouaifet. The dashboard was built to help analyze Diwan’s delivery sector to assist them in lowering wait time and show data collected to make managerial decisions to improve their service levels.')
  st.write('I am an AUB graduate studying to become a data analyst by using the methods learned at AUB to solve real-world problems and assist companies in understanding the data they acquired to find issues or ways to improve in this competitive world. With the power of data analysis and my undergraduate degree in International Business and management finding and understanding issues are up to my field of expertise. This dashboard and related report are proof of what my combined degrees can offer you.')
  st.write('Feel free to contact me for any future project using one of the following methods described below')
@@ -383,69 +452,7 @@ def app5():
     link2 = '[linkedin] https://www.linkedin.com/in/salemgr/'
     st.markdown(link2, unsafe_allow_html=True)
 
-# End of tab 5
-
-import numpy as np
-col11, col22, col33 = st.columns(3)
-#emp = col11.number_input('Insert number of Pickers', min_value=1, step=1)
-#orde= col22.number_input('Insert Orders per Hour')
-#cap = col33.number_input('Insert Capacity per Picker')
-
-#u=orde/(emp*cap)
-#st.write('Utilization of pickers',round(u*100, 2))
-
-
-with st.form(key='form1'):
-    emp = col11.number_input('Insert number of Pickers', min_value=1, step=1)
-    orde= col22.number_input('Insert Orders per Hour')
-    cap = col33.number_input('Insert Capacity per Picker')
-    try:
-        result = orde/(emp*cap)
-    except ZeroDivisionError:
-        result = 0
-
-    print(result)
-    
-    if (result < 0 or result > 1) :
-        st.error('negative result')
-    else:
-        st.write(f'Utilization of pickers {round(result*100,2)}')
-        sc=(result**np.sqrt(2*(emp+1)))/orde
-        try:
-            uf=1/(1-(orde/(emp*cap)))
-        except ZeroDivisionError:
-            uf = 0
-        mint=uf*sc
-        wait=mint*60
-        dp=st.write(f'On average minutes {round(wait, 2)} before order deployment')
-
-    st.form_submit_button('press to calculate')
-
-#u=orde/(emp*cap)
-
-#if (u < 0):
-#        st.write("Invalid Model")
-#elif (u > 1):
-#        st.write("Invalid Model")
-#else:
-#        up=st.write('Utilization of pickers',round(u*100, 2))
-#        sc=(u**np.sqrt(2*(emp+1)))/orde
-#        uf=1/(1-(orde/(emp*cap)))
-#        mint=uf*sc
-#        wait=mint*60
-#        dp=st.write('On average',round(wait, 2),'minute before order deployment')
-
-
-
-#sc=(u**np.sqrt(2*(emp+1)))/orde
-
-#uf=1/(1-(orde/(emp*cap)))
-
-#mint=uf*sc
-
-#wait=mint*60
-#st.write('On average',round(wait, 2),'minute before order deployment')
-
+# End of tab 6
 #########################################################
 
 #Run the whole lot, we get navbar, state management and app isolation, all with this tiny amount of work.
