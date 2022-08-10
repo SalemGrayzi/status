@@ -391,7 +391,7 @@ while (TNOW < TotalTime):
         else:
             Next_Service = ptive_inf
 
-st.write(print(total_wait/people_served))
+st.write(total_wait/people_served)
 
 
 #Run the whole lot, we get navbar, state management and app isolation, all with this tiny amount of work.
