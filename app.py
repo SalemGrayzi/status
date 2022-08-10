@@ -27,7 +27,7 @@ for percent_complete in range(100):
 st.write('Done Loading')
 
 st.balloons()
-
+@st.cache()
 ### Importing csv file from github onto streamlit
 df= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Statuscsv.csv')
 
