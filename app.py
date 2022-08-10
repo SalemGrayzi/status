@@ -383,7 +383,7 @@ def app4():
 # End of tab 4
 
 ######################################################### Building tab 5
-@st.cache()
+@st.cache(allow_output_mutation=True)
 
 @app.addapp(title='Queuing Model ',icon='⌚') ### This tab was built to explain who the person behind all this
 
