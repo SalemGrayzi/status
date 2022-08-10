@@ -27,9 +27,8 @@ for percent_complete in range(100):
 st.write('Done Loading')
 
 st.balloons()
-@st.cache(df= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Statuscsv.csv'))
 ### Importing csv file from github onto streamlit
-#df= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Statuscsv.csv')
+df= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Statuscsv.csv')
 
 ### Filling missing values in Adress column with the mode
 df['Address'] =  df['Address'].fillna('بشامون')
@@ -49,6 +48,7 @@ df['OnlineApp'] = df['OnlineApp'].map(
 ### In the bellow section it conatains all the graphs made
 
 ###################################### Graph to get orders per day in a year
+st.cache()
 Day=px.histogram(df, y= "Day Name",text_auto=True)
 Day.update_layout(yaxis={'categoryorder':'total ascending'})
 Day.update_layout(title="Orders per Day in a Year",xaxis_title="",yaxis_title="Day")
