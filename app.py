@@ -358,7 +358,7 @@ Q = [] # we initilize an empty system. Notice Q captures the people
         # queue, the item at the head of Q is the customer in service.
 total_wait = 0 # initialize a stastistic for the total accumulated wait
 people_served = 0 # ... and for the number of people servers
-TotalTime = 200000 # the number of minutes of a simulation run.
+TotalTime = 900 # the number of minutes of a simulation run.
 # Over 6000 minutes, we expect roughly 100 arrivals
 # because there is an arrival every 6 minutes
 while (TNOW < TotalTime):
