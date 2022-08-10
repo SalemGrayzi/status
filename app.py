@@ -1,4 +1,4 @@
-######################################import streamlit as st
+### Importing the required packages
 import pandas as pd
 import numpy as np
 import streamlit as st
@@ -16,52 +16,62 @@ from streamlit_metrics import metric, metric_row
 import io
 import hydralit as hy
 
+### Building the HydraApp
 app = hy.HydraApp(title='Diwan')
 
-
+### A progress bar that shows how long is left to get results
 my_bar = st.progress(0)
-# progress bar continues to complete from 0 to 100
 for percent_complete in range(100):
     time.sleep(0.1)
     my_bar.progress(percent_complete + 1)
 st.write('Done Loading')
 
-#st.balloons()
+st.balloons()
 
+### Importing csv file from github onto streamlit
 df= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Statuscsv.csv')
+
+### Filling missing values in Adress column with the mode
 df['Address'] =  df['Address'].fillna('بشامون')
+
+###Droping columns that dont add value to the analysis
 df.drop(['Order No_','Phone No_','Receipt No','Company'], axis = 1, inplace = True)
+
+### Dropping dublicates in the dataset
 df.drop_duplicates(inplace=True)
 
+### Changing Boolean values into their respectable names
 df['Handheld Used'] = df['Handheld Used'].map(
                    {True:'Used PDA' ,False:"Didn't Use PDA"})
 df['OnlineApp'] = df['OnlineApp'].map(
                    {True:'Application' ,False:'Phone Call'})
 
+### In the bellow section it conatains all the graphs made
 
-######################################
+###################################### Graph to get orders per day in a year
 Day=px.histogram(df, y= "Day Name",text_auto=True)
 Day.update_layout(yaxis={'categoryorder':'total ascending'})
 Day.update_layout(title="Orders per Day in a Year",xaxis_title="",yaxis_title="Day")
 
-######################################
+###################################### Graph to get number of order per driver
 driver=px.histogram(df, y="Driver Name", text_auto=True)
 driver.update_layout(yaxis={'categoryorder':'total ascending'})
 driver.update_layout(title="Number of Orders per Driver",xaxis_title="",yaxis_title="Driver")
 
-####################################################################
+#################################################################### This graph was sent into its area due to filtering reasoning
 #split_size = st.slider('Top n Drivers', 0, 90, 5)
 #dfd = df.groupby(['Driver Name']).size().to_frame().sort_values([0], ascending = False).head(split_size).reset_index()
 #dfd.columns = ['Driver Name', 'count']
 #drv = px.bar(dfd, y='Driver Name', x = 'count')
-######################################
+
+###################################### Graph to find the percent of PDA usage
 vt=df['Handheld Used'].value_counts()
 vts=df['Handheld Used'].value_counts().index
 pda=go.Figure(data=[go.Pie(labels=vts, values=vt, pull=[0.2, 0])])
 pda.update_traces(textposition='inside', textinfo='percent+label')
 pda.update_layout(title="Percent of PDA Usage")
 
-######################################
+###################################### Order status depending on which order method was used
 gh = sns.catplot(
     data=df, kind="count",
     x="Status", hue="Handheld Used",
@@ -69,7 +79,8 @@ gh = sns.catplot(
 )
 gh.fig.suptitle("Order Status with Usage of PDA")
 gh.set_axis_labels(x_var="Order Status", y_var="")
-######################################
+
+###################################### A graph illustrating which picker is using a PDA
 pdapicker = sns.catplot(
     data=df, kind="count",
     y="PickerName", hue="Handheld Used",
@@ -77,66 +88,71 @@ pdapicker = sns.catplot(
 )
 pdapicker.set(title ="Usage of PDA per Picker", ylabel='Picker')
 
-######################################
+###################################### Fidning the percentage of order status based on each picker
 stpk = px.histogram(df, y="PickerName", color="Status",barnorm = "percent",hover_data=["Status"])
 stpk.update_layout(yaxis={'categoryorder':'total ascending'})
 stpk.update_layout(title="Picker's Percentage of Order Status",xaxis_title="Percentage",yaxis_title="Picker")
 
-######################################
+###################################### Percentage of revenue based on order methods
 am=df['Amount'].value_counts()
 op=df['OnlineApp'].value_counts()
 ops=df['OnlineApp'].value_counts().index
 onmount=go.Figure(data=[go.Pie(labels=df['OnlineApp'], values=df.loc[df['Status'] == 'Delivered'].Amount, pull=[0.2, 0])])
 onmount.update_traces(textposition='inside', textinfo='percent+label')
 onmount.update_layout(title="Revenue of Ordering Method")
-######################################
+
+###################################### Percentage of lost sales based on order methods
 onmount2=go.Figure(data=[go.Pie(labels=df['OnlineApp'], values=df.loc[df['Status'] == 'Canceled'].Amount, pull=[0.2, 0])])
 onmount2.update_traces(textposition='inside', textinfo='percent+label')
-onmount2.update_layout(title="Lost Revenue of Ordering Method")
+onmount2.update_layout(title="Lost Sales of Ordering Method")
 
-######################################
+#################################################################### This graph was sent into its area due to filtering reasoning
 #n_size = st.sidebar.slider('Top n Customers', 0, 90, 5)
 #dfna = df.groupby("Name", as_index=False).sum().sort_values("Amount", ascending=False).head(n_size)
 #amc=go.Figure(go.Bar(x=dfna["Amount"], y=dfna["Name"]))
 #amc=px.histogram(data_frame=dfna, x='Amount', y='Name')
-######################################
+
+###################################### ORder status based on order methods
 sto=px.histogram(df, y="Status", color="OnlineApp",text_auto=True)
 sto.update_layout(title="Status of Order per Ordering Method",xaxis_title="",yaxis_title="Status of Order")
-######################################
+
+###################################### Time of incoming orders in a day
 tc=px.line(df, y=df['Time Created'].value_counts(),x=df['Time Created'].value_counts().index)
 tc.update_layout(title="Time of Incoming Orders",xaxis_title="Time of Order",yaxis_title="")
-######################################
+
+###################################### Time it takes for an order to deploy
 tdc=px.line(df, y=df['Time to deploy'].value_counts(),x=df['Time to deploy'].value_counts().index)
 tdc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Hours and Minutes",yaxis_title="")
 
-######################################
+#################################################################### This graph was sent into its area due to filtering reasoning
 #slides = st.sidebar.slider('Top n Locations', 0, 90, 5)
 #addy = df.groupby(['Address']).size().to_frame().sort_values([0], ascending = False).head(slides).reset_index()
 #addy.columns = ['Adress', 'count']
 #addresss = px.bar(addy, y='Adress', x = 'count')
-######################################
+
+###################################### Average revenue per day
 dincome = px.histogram(df, y="Day Name",x='Amount', histfunc='avg',text_auto=True)
 dincome.update_layout(yaxis={'categoryorder':'total ascending'})
 dincome.update_layout(title="Average Revenue Per Day",xaxis_title="Amount",yaxis_title="Day Name")
 
 #15
 
-
-@app.addapp(is_home=True,icon='🏪')
+### Creating the first tab of hydralit
+@app.addapp(is_home=True,icon='🏪') # Setting this to be the home tab and adding an icon
 def Home():
  st.title('Diwan Delivery Analysis')
- col1, col2,col3 = st.columns(3)
+ col1, col2,col3 = st.columns(3) ### Adding columns to insert the picture in the middle of the screen in column 2
 
  with col1:
      st.write(' ')
-
  with col2:
-     st.image("https://play-lh.googleusercontent.com/qPmIH0OemtPoTXyEztnpZVW-35sEWvrw99DIX6n1sklf1mDekUxtMzyInpJlTOATsp5B")
+     st.image("https://play-lh.googleusercontent.com/qPmIH0OemtPoTXyEztnpZVW-35sEWvrw99DIX6n1sklf1mDekUxtMzyInpJlTOATsp5B") # Adding Diwan hyper market picture
  with col3:
     st.write(' ')
 
- head = st.checkbox('First Few Rows')
- if st.checkbox('Show all graphs'):
+ head = st.checkbox('First Few Rows') # Making a checkbox for showing df.head
+
+ if st.checkbox('Show all graphs'): # Adding all graph into a single button to see
     st.subheader('All Graphs')
     Day
     driver
@@ -170,6 +186,8 @@ def Home():
     dincome
  if head:
      st.write(df.head())
+
+ ### Adding comments onto the home tab for understanding the dashboard
  st.header('What is the objective of this Dashboard?')
  st.write('In this dashboard, we are trying to analyze Diwan’s Delivery sector, by making visuals to help us understand what is happening on the ground as it brings many managerial insights about how the company is doing throughout the year. This dashboard will go into three various sub-sections in the delivery sector. The three sub-sections that we will be focusing on are:')
  st.write('1-	Employees related analysis')
@@ -177,36 +195,50 @@ def Home():
  st.write('3-	Customer analysis and the area they are ordering from')
  st.write('After going through each tab and its respectable analysis we would understand in more detail how this information can enable us to adapt accordingly. Each tab represents a certain sub-section and a quick analysis of what is being presented.')
 
+ ### Adding Tableau dashboard link for secondary dashboard
  st.write('For additional visuals feel free to press the following link')
- link = '[GitHub]https://public.tableau.com/app/profile/salem.gr/viz/DiwanDeliverySectorAnalysis/DiwanDeliverySectorAnalysis'
+ link = '[Tableau]https://public.tableau.com/app/profile/salem.gr/viz/DiwanDeliverySectorAnalysis/DiwanDeliverySectorAnalysis'
  st.markdown(link, unsafe_allow_html=True)
 
-
+ ### Importing the table ive made on the queuing model using csv github
  st.write('The following button has three models depending on demand Diwan should hire accordingly with its following costs')
  df1= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Queing%20Model.csv')
 
+## defining a code to convert df1 into utf-8
  def convert_df(df1):
      return df1.to_csv().encode('utf-8')
 
+## Converting the csv file to utf-8
  csv = convert_df(df1)
 
+### Creating a download button to get the queuing model
  st.download_button(
      label="Download Queuing Model",
      data=csv,
      file_name='Queuing_Model.csv',
      mime='text/csv',
   )
- st.write('For the full analysis press the following link to be redirected to the report')
- link1 = '[Full Report]https://drive.google.com/uc?export=download&id=16OLgv9XU_rmuHPZ4wCwveAWeGsR4GlHs'
- st.markdown(link1, unsafe_allow_html=True)
-############################################################################
 
-@app.addapp(title='Employee Related Analysis',icon='💼')
+ ### Word documents from google drive where it has the full report once clicked it downloads
+ st.write('For the full analysis press the following link to be redirected to the report')
+ link1 = '[Full Report]https://drive.google.com/uc?export=download&id=1xiEgoeXq9oxBc4ZQELjsY36mHyrbHFXV'
+ st.markdown(link1, unsafe_allow_html=True)
+
+# End of tab 1
+
+############################################################################ Building the second tab
+
+@app.addapp(title='Employee Related Analysis',icon='💼') ### Adding the name of tab as well as an icon
 def app2():
+
+### A brief introduction on this section
  st.write('In this section, we are going to be talking about how the pickers are utilizing the PDA equipment as well as how it might affect an order status. Here we will find the distribution of PDA usage across the pickers to find the percentage of if they are using said equipment or not. After finding the percentage of usage of PDA we turn our heads to find the proportions of each picker if their orders were canceled or delivered as this might arise some issues that some pickers might be falling behind whether it’s their service or an issue they are facing for higher cancelation rates.')
 
+### Setting a selectbox with all graphs related to this section
  PDA1 = hy.selectbox('Employee Related Analysis',
                                     ['None','Pickers','Picker and Order Status','PDA Usage','Drivers','PDA and Status of Order','All'])
+
+### Setting up the selectbox with if this do this else this
  if PDA1 == 'Pickers':
     st.pyplot(pdapicker)
     st.write('Here we can see each picker that is using a PDA or not. as we can see many of the pickers are not using the PDA in thier daily operations.')
@@ -243,12 +275,16 @@ def app2():
         st.pyplot(gh)
  elif PDA1 == 'None':
         st.write(str(''))
-#6
-############################################################################
 
-@app.addapp(title='Application or Call Analysis',icon='📲')
+# End of tab 2
+
+############################################################################ Building tab 3
+
+@app.addapp(title='Ordering Methods',icon='📲') ### Tab 3's name and icon
 def app3():
  st.write('In this section, we focus on which ordering method is bringing in the most revenue and causing lost opportunity sales. The two methods are using the phone to order, or the application. Finally, we would like to find which ordering method has a higher probability of lost sales, and which generates the most revenue.')
+
+### Setting up the selectbox for the following graphs
  App = hy.selectbox('Application or Call Analysis',
                                      ['None', 'App vs. Call Revenues','Status of Delivery Using App','All'])
 
@@ -266,17 +302,20 @@ def app3():
  elif App == 'None':
      st.write(str(''))
 
-#3
-############################################################################
+# End of tab 3
+############################################################################ Building tab 4
 
-@app.addapp(title='Customer Analysis',icon='📈')
+@app.addapp(title='Customer Analysis',icon='📈') ### Naming the fourth tab and setting up its icon
 def app4():
 
  st.write('Finally, the last section covers the customers. In this section, we will be looking at overall lost sales and generated revenues, and several other pieces of information that are valuable to understanding Diwan’s customers. Here we look at revenues generated by each customer and which day generates the most. An important part is analyzing which days are the highest demand, and the area they are coming from. Last but not least is finding the distribution of the time of incoming orders to understand during which time has the biggest workload on the pickers, and see how long it takes to deploy an order.')
 
+### Creating KPI design showing the revenue and lost sales
  col1, col2 = st.columns(2)
  col1.metric(label="Revenue in LBP", value=df.loc[df['Status'] == 'Delivered'].Amount.sum(), delta_color="inverse")
  col2.metric(label="Lost Sales in LBP", value=df.loc[df['Status'] == 'Canceled'].Amount.sum(), delta_color="inverse")
+
+ ### Setting up the graph filtering of selection
  App = hy.selectbox('Customer Analysis',
                                      ['None','Days','Revenue Per Customer','Wait Time to Deploy','Time of Incoming Orders','Address','Average Revenue Per Day','All'])
 
@@ -327,8 +366,12 @@ def app4():
      dincome
  elif App == 'None':
      st.write(str(''))
-#########################################################
-@app.addapp(title='About',icon='🤵')
+
+# End of tab 4
+
+######################################################### Building tab 5
+@app.addapp(title='About',icon='🤵') ### This tab was built to explain who the person behind all this
+
 def app5():
  st.write('This dashboard was made possible by Salem Gr., for Diwan Hyper Market located in Lebanon, Old Saida Road Chouaifet. The dashboard was built to help analyze Diwan’s delivery sector to assist them in lowering wait time and show data collected to make managerial decisions to improve their service levels.')
  st.write('I am an AUB graduate studying to become a data analyst by using the methods learned at AUB to solve real-world problems and assist companies in understanding the data they acquired to find issues or ways to improve in this competitive world. With the power of data analysis and my undergraduate degree in International Business and management finding and understanding issues are up to my field of expertise. This dashboard and related report are proof of what my combined degrees can offer you.')
@@ -340,9 +383,28 @@ def app5():
     link2 = '[linkedin] https://www.linkedin.com/in/salemgr/'
     st.markdown(link2, unsafe_allow_html=True)
 
-    
-    
+# End of tab 5
 
+import numpy as np
+col11, col22, col33 = st.columns(3)
+emp = col11.number_input('Insert number of Pickers', min_value=1, step=1)
+orde= col22.number_input('Insert Orders per Hour')
+cap = col33.number_input('Insert Capacity per Picker')
+
+u=orde/(emp*cap)
+st.write('Utilization of pickers',round(u*100, 2))
+
+
+sc=(u**np.sqrt(2*(emp+1)))/orde
+
+uf=1/(1-(orde/(emp*cap)))
+
+mint=uf*sc
+
+wait=mint*60
+st.write('On average',round(wait, 2),'minute before order deployment')
+
+#########################################################
 
 #Run the whole lot, we get navbar, state management and app isolation, all with this tiny amount of work.
 app.run()
