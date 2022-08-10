@@ -347,7 +347,7 @@ import numpy as np
 # this is a simulation of an M/M/1 queue. It outpues at the end the average customer timimport numpy as np
 ptive_inf = float('inf')
 x = 10 # the mean inter-arrival time (one arrival every 6 minutes)
-y = 80 # is the mean service time.
+y = 0.75 # is the mean service time.
 TNOW = 0 # initialize the simulation at time 0
 Next_Arrival = np.random.exponential(x) # the first arrival after time 0
 # happens at time exp(6), in expectation after 6 minutes
