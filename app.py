@@ -48,13 +48,13 @@ df['OnlineApp'] = df['OnlineApp'].map(
 ### In the bellow section it conatains all the graphs made
 
 ###################################### Graph to get orders per day in a year
-st.cache
+st.cache()
 Day=px.histogram(df, y= "Day Name",text_auto=True)
 Day.update_layout(yaxis={'categoryorder':'total ascending'})
 Day.update_layout(title="Orders per Day in a Year",xaxis_title="",yaxis_title="Day")
 
 ###################################### Graph to get number of order per driver
-st.cache
+st.cache()
 driver=px.histogram(df, y="Driver Name", text_auto=True)
 driver.update_layout(yaxis={'categoryorder':'total ascending'})
 driver.update_layout(title="Number of Orders per Driver",xaxis_title="",yaxis_title="Driver")
@@ -66,7 +66,7 @@ driver.update_layout(title="Number of Orders per Driver",xaxis_title="",yaxis_ti
 #drv = px.bar(dfd, y='Driver Name', x = 'count')
 
 ###################################### Graph to find the percent of PDA usage
-st.cache
+st.cache()
 vt=df['Handheld Used'].value_counts()
 vts=df['Handheld Used'].value_counts().index
 pda=go.Figure(data=[go.Pie(labels=vts, values=vt, pull=[0.2, 0])])
@@ -74,7 +74,7 @@ pda.update_traces(textposition='inside', textinfo='percent+label')
 pda.update_layout(title="Percent of PDA Usage")
 
 ###################################### Order status depending on which order method was used
-st.cache
+st.cache()
 gh = sns.catplot(
     data=df, kind="count",
     x="Status", hue="Handheld Used",
@@ -99,7 +99,7 @@ stpk.update_layout(yaxis={'categoryorder':'total ascending'})
 stpk.update_layout(title="Picker's Percentage of Order Status",xaxis_title="Percentage",yaxis_title="Picker")
 
 ###################################### Percentage of revenue based on order methods
-st.cache
+st.cache()
 am=df['Amount'].value_counts()
 op=df['OnlineApp'].value_counts()
 ops=df['OnlineApp'].value_counts().index
@@ -108,7 +108,7 @@ onmount.update_traces(textposition='inside', textinfo='percent+label')
 onmount.update_layout(title="Revenue of Ordering Method")
 
 ###################################### Percentage of lost sales based on order methods
-st.cache
+st.cache()
 onmount2=go.Figure(data=[go.Pie(labels=df['OnlineApp'], values=df.loc[df['Status'] == 'Canceled'].Amount, pull=[0.2, 0])])
 onmount2.update_traces(textposition='inside', textinfo='percent+label')
 onmount2.update_layout(title="Lost Sales of Ordering Method")
@@ -151,7 +151,7 @@ dincome.update_layout(title="Average Revenue Per Day",xaxis_title="Amount",yaxis
 ### Creating the first tab of hydralit
 @app.addapp(is_home=True,icon='🏪') # Setting this to be the home tab and adding an icon
 def Home():
- st.cache
+ st.cache()
  st.title('Diwan Delivery Analysis')
  col1, col2,col3 = st.columns(3) ### Adding columns to insert the picture in the middle of the screen in column 2
 
