@@ -342,7 +342,7 @@ def app5():
 
     
     
-    import random
+import random
 import numpy as np
 ptive_inf=float('inf')
 x= 6 # the mean inter-arrival time (one arrival every 6 minutes)
@@ -355,11 +355,11 @@ total_wait= 0 # initialize a stastistic for the total accumulated waitpeople_ser
 TotalTime= 200000 # the number of minutes of a simulation run.# Over 6000 minutes, we expect roughly 100 arrivals# because there is an arrival every 6 minutes
 while(TNOW<TotalTime):
     if(Next_Arrival<Next_Service):# if we have an arrival before service completion, we add the arrival# (with its arrival time and service requirement) to the queue
-    Q.append((Next_Arrival,np.random.exponential(y)))# we advance the current run time to the time of this arrival.
-    TNOW=Next_Arrival# if this customer arrived to an empty queue (so that after appending,# len(Q)=1) then we put the customer in service
-if(len(Q)==1):
-    Next_Service=TNOW+Q[0][1]# we generate the next arrival.
-Next_Arrival=TNOW+np.random.exponential(x)
+        Q.append((Next_Arrival,np.random.exponential(y)))# we advance the current run time to the time of this arrival.
+        TNOW=Next_Arrival# if this customer arrived to an empty queue (so that after appending,# len(Q)=1) then we put the customer in service
+        if(len(Q)==1):
+            Next_Service=TNOW+Q[0][1]# we generate the next arrival.
+    Next_Arrival=TNOW+np.random.exponential(x)
 if(Next_Service<Next_Arrival):# when we have a service completion before an arrival, we add one to the count
 # of number of people served.
     people_served+=1
