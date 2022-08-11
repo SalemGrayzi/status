@@ -15,6 +15,7 @@ import time
 from streamlit_metrics import metric, metric_row
 import io
 import hydralit as hy
+st.set_page_config(layout="wide")
 
 ### Building the HydraApp
 app = hy.HydraApp(title='Diwan')
@@ -49,9 +50,8 @@ df['OnlineApp'] = df['OnlineApp'].map(
 
 ###################################### Graph to get orders per day in a year
 st.cache()
-Day=px.histogram(df, y= "Day Name",text_auto=True)
-Day.update_layout(yaxis={'categoryorder':'total ascending'})
-Day.update_layout(title="Orders per Day in a Year",xaxis_title="",yaxis_title="Day")
+Day=px.histogram(df, x= "Day Name",text_auto=True,category_orders={'Day Name':["Monday","Tuesday","Wednesday", "Thursday", "Friday", "Saturday","Sunday"]})
+Day.update_layout(title="Orders per Day in a Year",xaxis_title="Day",yaxis_title="")
 
 ###################################### Graph to get number of order per driver
 st.cache()
@@ -126,13 +126,21 @@ sto.update_layout(title="Status of Order per Ordering Method",xaxis_title="",yax
 
 ###################################### Time of incoming orders in a day
 st.cache()
-tc=px.line(df, y=df['Time Created'].value_counts(),x=df['Time Created'].value_counts().index)
-tc.update_layout(title="Time of Incoming Orders",xaxis_title="Time of Order",yaxis_title="")
+df['Time Created'] = pd.to_datetime(df['Time Created'], format='%I:%M:%S %p')
+tc=px.histogram(x=df['Time Created'])
+#,category_orders={'':["7:00:00 AM","8:00:00 AM","9:00:00 AM", "10:00:00 AM", "11:00:00 AM", "12:00:00 PM","1:00:00 PM","2:00:00 PM","3:00:00 PM","4:00:00 PM","5:00:00 PM","6:00:00 PM","7:00:00 PM","8:00:00 PM","9:00:00 PM","10:00:00 PM","11:00:00 PM","12:00:00 PM","1:00:00 AM","2:00:00 AM","3:00:00 AM","4:00:00 AM","5:00:00 AM","6:00:00 AM"]})
+
+#tc=px.line(df, y=df['Time Created'].value_counts(),x=df['Time Created'].value_counts().index,
+#    category_orders={'Time Created':["7:00:00 AM","8:00:00 AM","9:00:00 AM", "10:00:00 AM", "11:00:00 AM", "12:00:00 PM",
+#    "1:00:00 PM","2:00:00 PM","3:00:00 PM","4:00:00 PM","5:00:00 PM","6:00:00 PM","7:00:00 PM","8:00:00 PM","9:00:00 PM",
+#    "10:00:00 PM","11:00:00 PM","12:00:00 PM","1:00:00 AM","2:00:00 AM","3:00:00 AM","4:00:00 AM","5:00:00 AM","6:00:00 AM"]})
+#tc.update_layout(title="Time of Incoming Orders",xaxis_title="Time of Order",yaxis_title="")
 
 ###################################### Time it takes for an order to deploy
 st.cache()
 tdc=px.line(df, y=df['Time to deploy'].value_counts(),x=df['Time to deploy'].value_counts().index)
 tdc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Hours and Minutes",yaxis_title="")
+
 
 #################################################################### This graph was sent into its area due to filtering reasoning
 #slides = st.sidebar.slider('Top n Locations', 0, 90, 5)
@@ -142,8 +150,7 @@ tdc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Hours and
 
 ###################################### Average revenue per day
 st.cache()
-dincome = px.histogram(df, y="Day Name",x='Amount', histfunc='avg',text_auto=True)
-dincome.update_layout(yaxis={'categoryorder':'total ascending'})
+dincome = px.histogram(df, y="Day Name",x='Amount', histfunc='avg',text_auto=True,category_orders={'Day Name':["Monday","Tuesday","Wednesday", "Thursday", "Friday", "Saturday","Sunday"]})
 dincome.update_layout(title="Average Revenue Per Day",xaxis_title="Amount",yaxis_title="Day Name")
 
 #15
@@ -163,38 +170,81 @@ def Home():
     st.write(' ')
 
  head = st.checkbox('First Few Rows') # Making a checkbox for showing df.head
-
  if st.checkbox('Show all graphs'): # Adding all graph into a single button to see
     st.subheader('All Graphs')
-    Day
-    driver
-    split_size = st.slider('Top n Drivers', 0, 90, 5)
-    dfd = df.groupby(['Driver Name']).size().to_frame().sort_values([0], ascending = False).head(split_size).reset_index()
-    dfd.columns = ['Driver Name', 'count']
-    drv = px.bar(dfd, y='Driver Name', x = 'count',text_auto=True)
-    drv.update_layout(title="Number of Orders per Driver",xaxis_title="",yaxis_title="Driver")
-    drv
-    pda
-    st.pyplot(gh)
-    st.pyplot(pdapicker)
-    stpk
-    onmount
-    onmount2
-    n_size = st.slider('Top n Customers', 0, 90, 5)
-    dfna = df.groupby("Name", as_index=False).sum().sort_values("Amount", ascending=False).head(n_size)
-    amc=go.Figure(go.Bar(x=dfna["Amount"], y=dfna["Name"]))
-    amc=px.histogram(data_frame=dfna, x='Amount', y='Name',text_auto=True)
-    amc.update_layout(title="Revenue of Customers",xaxis_title="",yaxis_title="Name of Customer")
-    amc
-    sto
-    tc
-    tdc
-    slides = st.slider('Top n Locations', 0, 90, 5)
-    addy = df.groupby(['Address']).size().to_frame().sort_values([0], ascending = False).head(slides).reset_index()
-    addy.columns = ['Adress', 'count']
-    addresss = px.bar(addy, y='Adress', x = 'count', text_auto=True)
-    addresss.update_layout(title="Demand per Area",xaxis_title="",yaxis_title="Location")
-    addresss
+    container1 = st.container()
+    g1, g2,g21 = st.columns(3)
+
+    with container1:
+        with g1:
+            Day
+        with g21:
+            driver
+
+
+    container2 = st.container()
+    g3, g4, g41 = st.columns(3)
+
+    with container2:
+        with g3:
+            split_size = st.slider('Top n Drivers', 0, 90, 5)
+            dfd = df.groupby(['Driver Name']).size().to_frame().sort_values([0], ascending = False).head(split_size).reset_index()
+            dfd.columns = ['Driver Name', 'count']
+            drv = px.bar(dfd, y='Driver Name', x = 'count',text_auto=True)
+            drv.update_layout(title="Number of Orders per Driver",xaxis_title="",yaxis_title="Driver")
+            drv
+        with g41:
+            pda
+    container3 = st.container()
+    g5,g6,g61 = st.columns(3)
+
+    with container3:
+        with g5:
+            st.pyplot(gh)
+        with g61:
+            st.pyplot(pdapicker)
+    container4 = st.container()
+    g7,g8,g81 = st.columns(3)
+
+    with container4:
+        with g7:
+            stpk
+        with g81:
+            onmount
+    container5 = st.container()
+    g9,g10,g01 = st.columns(3)
+
+    with container5:
+        with g9:
+            onmount2
+        with g01:
+            n_size = st.slider('Top n Customers', 0, 90, 5)
+            dfna = df.groupby("Name", as_index=False).sum().sort_values("Amount", ascending=False).head(n_size)
+            amc=go.Figure(go.Bar(x=dfna["Amount"], y=dfna["Name"]))
+            amc=px.histogram(data_frame=dfna, x='Amount', y='Name',text_auto=True)
+            amc.update_layout(title="Revenue of Customers",xaxis_title="",yaxis_title="Name of Customer")
+            amc
+    container6 = st.container()
+    g11,g12,g02 = st.columns(3)
+
+    with container6:
+        with g11:
+            sto
+        with g02:
+            tc
+    container7 = st.container()
+    g13,g14,g04 = st.columns(3)
+
+    with container7:
+        with g13:
+            tdc
+        with g04:
+            slides = st.slider('Top n Locations', 0, 90, 5)
+            addy = df.groupby(['Address']).size().to_frame().sort_values([0], ascending = False).head(slides).reset_index()
+            addy.columns = ['Adress', 'count']
+            addresss = px.bar(addy, y='Adress', x = 'count', text_auto=True)
+            addresss.update_layout(title="Demand per Area",xaxis_title="",yaxis_title="Location")
+            addresss
     dincome
  if head:
      st.write(df.head())
@@ -407,6 +457,7 @@ def app5():
 
  def my_value(number):
      return ("{:,}".format(number)) # a function to format numbers to have commas in them
+
 
 
  with st.form(key='form1'):
