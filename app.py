@@ -408,28 +408,26 @@ def app5():
  def my_value(number):
      return ("{:,}".format(number)) # a function to format numbers to have commas in them
 
- col11, col22, col33, col44, col55, col66 = st.columns(6) # creating 6 columns to put all the input boxes next to each other
 
-
- with st.form(key='form1'): # enabling the model to calculate after button is pressed
- # putting various number inputs for the calculations
-    emp = col11.number_input('Number of Pickers', value=14,min_value=1, step=1)
-    orde= col22.number_input('Orders per Hour',value=10)
-    cap = col33.number_input("Picker's Capacity per Hour",value=.75)
-    costp = col44.number_input("Picker's Salary per Hour",value=16203.70)
-    costc = col55.number_input('Cost of Call per Minute',value=0.004,format="%.5f")
-    rate = col66.number_input('Insert LBP Exchange Rate',value=29500)
-
-    try:
+ with st.form(key='form1'):
+     col11, col22, col33, col44, col55, col66 = st.columns(6) # creating 6 columns to put all the input boxes next to each other
+     emp = col11.number_input('Number of Pickers', value=14,min_value=1, step=1)
+     orde= col22.number_input('Orders per Hour',value=10)
+     cap = col33.number_input("Picker's Capacity per Hour",value=.75)
+     costp = col44.number_input("Picker's Salary per Hour",value=16203.70)
+     costc = col55.number_input('Cost of Call per Minute',value=0.004,format="%.5f")
+     rate = col66.number_input('Insert LBP Exchange Rate',value=29500)
+     st.cache()
+     try:
         result = orde/(emp*cap)
-    except ZeroDivisionError: # error will appear if zero division error appears
+     except ZeroDivisionError: # error will appear if zero division error appears
         result = 0 # then returning 0 as output
 
-    print(result)
+     print(result)
 
-    if (result < 0 or result > 1) : #if Utilization is less than 0 and greater than 1 returns an error
-        st.error('negative result')
-    else:
+     if (result < 0 or result > 1) : #if Utilization is less than 0 and greater than 1 returns an error
+        st.error('Inavlid Model')
+     else:
         st.write(f'Utilization of pickers {round(result*100,2)}%') # Rounding Utilization and turning it into percent
         sc=(result**np.sqrt(2*(emp+1)))/orde # formula to calculate the first part of the equation using the numbers that have been input
         try:
@@ -450,7 +448,7 @@ def app5():
         st.write(f'Total cost would be {my_value(round(total))} LBP per hour')
         totalusd=total/rate
         st.write(f'Total cost in U.S.D would be ${round(totalusd,2)} per hour')
-    st.form_submit_button('Press to calculate') #button to be pressed to initiate calculating
+     st.form_submit_button('Press to calculate') #button to be pressed to initiate calculating
 
 # End of tab 5
 
