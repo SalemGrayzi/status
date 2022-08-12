@@ -385,13 +385,14 @@ def app4():
 
  def my_value(number):
      return ("{:,}".format(number)) # a function to format numbers to have commas in them
+ from millify import millify
+
 ### Creating KPI design showing the revenue and lost sales
  asd=df.loc[df['Status'] == 'Delivered'].Amount.sum()
  asc=df.loc[df['Status'] == 'Canceled'].Amount.sum()
-
  col1, col2 = st.columns(2)
- col1.metric(label="Revenue in LBP", value=my_value(asd), delta_color="inverse")
- col2.metric(label="Lost Sales in LBP", value=my_value(asc), delta_color="inverse")
+ col1.metric(label="Revenue in LBP", value=millify(asd, precision=2), delta_color="inverse")
+ col2.metric(label="Lost Sales in LBP", value=millify(asc, precision=2), delta_color="inverse")
 
  ### Setting up the graph filtering of selection
  App = hy.selectbox('Customer Analysis',
