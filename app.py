@@ -15,7 +15,6 @@ import time
 from streamlit_metrics import metric, metric_row
 import io
 import hydralit as hy
-from millify import millify
 st.set_page_config(layout="wide")
 
 ### Building the HydraApp
@@ -388,12 +387,12 @@ def app4():
      return ("{:,}".format(number)) # a function to format numbers to have commas in them
 ### Creating KPI design showing the revenue and lost sales
  asd=df.loc[df['Status'] == 'Delivered'].Amount.sum()
- asd1=millify(asd, 2)
+
  asc=df.loc[df['Status'] == 'Canceled'].Amount.sum()
- asc1=millify(asc,2)
+ 
  col1, col2 = st.columns(2)
- col1.metric(label="Revenue in LBP", value=asd1, delta_color="inverse")
- col2.metric(label="Lost Sales in LBP", value=asc1, delta_color="inverse")
+ col1.metric(label="Revenue in LBP", value=asd, delta_color="inverse")
+ col2.metric(label="Lost Sales in LBP", value=asc, delta_color="inverse")
 
  ### Setting up the graph filtering of selection
  App = hy.selectbox('Customer Analysis',
