@@ -6,4 +6,5 @@ seaborn
 bokeh
 markdown
 hydralit_components
-hydralit 
+hydralit
+streamlit_metrics
