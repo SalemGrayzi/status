@@ -15,6 +15,7 @@ import time
 from streamlit_metrics import metric, metric_row
 import io
 import hydralit as hy
+from millify import millify
 st.set_page_config(layout="wide")
 
 ### Building the HydraApp
@@ -72,6 +73,8 @@ vts=df['Handheld Used'].value_counts().index
 pda=go.Figure(data=[go.Pie(labels=vts, values=vt, pull=[0.2, 0])])
 pda.update_traces(textposition='inside', textinfo='percent+label')
 pda.update_layout(title="Percent of PDA Usage")
+hp,hp1 = (df['Handheld Used'].value_counts() /
+                      df['Handheld Used'].value_counts().sum()) * 100
 
 ###################################### Order status depending on which order method was used
 st.cache()
@@ -107,11 +110,16 @@ onmount=go.Figure(data=[go.Pie(labels=df['OnlineApp'], values=df.loc[df['Status'
 onmount.update_traces(textposition='inside', textinfo='percent+label')
 onmount.update_layout(title="Revenue of Ordering Method")
 
+
+
 ###################################### Percentage of lost sales based on order methods
 st.cache()
 onmount2=go.Figure(data=[go.Pie(labels=df['OnlineApp'], values=df.loc[df['Status'] == 'Canceled'].Amount, pull=[0.2, 0])])
 onmount2.update_traces(textposition='inside', textinfo='percent+label')
 onmount2.update_layout(title="Lost Sales of Ordering Method")
+os,os1 = (df.groupby('OnlineApp')['Status'].count() /
+                      df['OnlineApp'].value_counts().sum()) * 100
+
 
 #################################################################### This graph was sent into its area due to filtering reasoning
 #n_size = st.sidebar.slider('Top n Customers', 0, 90, 5)
@@ -128,6 +136,7 @@ sto.update_layout(title="Status of Order per Ordering Method",xaxis_title="",yax
 st.cache()
 df['Time Created'] = pd.to_datetime(df['Time Created'], format='%I:%M:%S %p')
 tc=px.histogram(x=df['Time Created'])
+
 #,category_orders={'':["7:00:00 AM","8:00:00 AM","9:00:00 AM", "10:00:00 AM", "11:00:00 AM", "12:00:00 PM","1:00:00 PM","2:00:00 PM","3:00:00 PM","4:00:00 PM","5:00:00 PM","6:00:00 PM","7:00:00 PM","8:00:00 PM","9:00:00 PM","10:00:00 PM","11:00:00 PM","12:00:00 PM","1:00:00 AM","2:00:00 AM","3:00:00 AM","4:00:00 AM","5:00:00 AM","6:00:00 AM"]})
 
 #tc=px.line(df, y=df['Time Created'].value_counts(),x=df['Time Created'].value_counts().index,
@@ -306,7 +315,7 @@ def app2():
     st.write('Here we can see each picker that is using a PDA or not. as we can see many of the pickers are not using the PDA in thier daily operations.')
  elif PDA1 == 'PDA Usage':
         pda
-        st.write('From this graph we can analyze that 44.3% of pickers are using PDAs compared to 55.7% of them not using PDA. This shows that we should find a way to push the usage of PDAs across the pickers.')
+        st.write(f'From this graph we can analyze that {round(hp1,2)}% of pickers are using PDAs compared to {round(hp,2)}% of them not using PDA. This shows that we should find a way to push the usage of PDAs across the pickers.')
  elif PDA1 == 'Picker and Order Status':
         stpk
         st.write('In this graph we can see the proportions of each picker from their total orders based on cancelation, and completed orders. The Blue shows the orders that have been completed comapared to red which shows the cancelations. As we can see there are couple of pickers that have a higher probability of their orders being canceled this is why we need to get to the bottom of the issue to fix it.')
@@ -318,7 +327,7 @@ def app2():
         drv = px.bar(dfd, y='Driver Name', x = 'count',text_auto=True)
         drv.update_layout(title="Number of Orders per Driver",xaxis_title="",yaxis_title="Driver")
         drv
-        st.write('This graph shows the number of orders each driver has done throughout the year, with a filter where you can look at the top # of drivers based on the number of orders.')
+        st.write(f'The top {split_size} drivers are shown, with the corresponding number of orders throughout the year')
  elif PDA1 == 'PDA and Status of Order':
         st.pyplot(gh)
         st.write('This graph is very important as it shows us how does PDA affect the order status. As we can see orders that were canceled with the usage of PDA has a much lower ratio compared to not using PDAs. Even though delivered orders are similar to each other but with cancelation there is a big difference between them.')
@@ -349,12 +358,12 @@ def app3():
 
 ### Setting up the selectbox for the following graphs
  App = hy.selectbox('Application or Call Analysis',
-                                     ['None', 'App vs. Call Revenues','Status of Delivery Using App','All'])
+                                     ['None', 'App vs. Call Revenues and Lost Sales','Status of Delivery Using App','All'])
 
- if App == 'App vs. Call Revenues':
+ if App == 'App vs. Call Revenues and Lost Sales':
      onmount
      onmount2
-     st.write('Here we see the ratio for each ordering method with revenue generated as well as lost sales. As we can see 79.2% of generated revenue is coming from phone calls compared to 20.8% from applications. Now lost sales from phone calls are 73.6% compared to 26.4% from the application. There is about a 6% difference between revenues and lost sales between both ordering methods.')
+     st.write(f'The order methods that are being used to order would be {round(os,2)}% application and {round(os1,2)}% phone calls')
  elif App == 'Status of Delivery Using App':
      sto
      st.write('The ratio between delivered and canceled between the two ordering methods is significant as we can see phone calls have a higher probability to be canceled compared to applications. This could indicate an issue in the call center resulting in more canceled orders.')
@@ -372,11 +381,19 @@ def app3():
 def app4():
  st.cache()
  st.write('Finally, the last section covers the customers. In this section, we will be looking at overall lost sales and generated revenues, and several other pieces of information that are valuable to understanding Diwan’s customers. Here we look at revenues generated by each customer and which day generates the most. An important part is analyzing which days are the highest demand, and the area they are coming from. Last but not least is finding the distribution of the time of incoming orders to understand during which time has the biggest workload on the pickers, and see how long it takes to deploy an order.')
+ ttdm=df['Time to deploy'].value_counts().nlargest(6).index.max()
+ ttdi=df['Time to deploy'].value_counts().nlargest(6).index.min()
 
+ def my_value(number):
+     return ("{:,}".format(number)) # a function to format numbers to have commas in them
 ### Creating KPI design showing the revenue and lost sales
+ asd=df.loc[df['Status'] == 'Delivered'].Amount.sum()
+ asd1=millify(asd, 2)
+ asc=df.loc[df['Status'] == 'Canceled'].Amount.sum()
+ asc1=millify(asc,2)
  col1, col2 = st.columns(2)
- col1.metric(label="Revenue in LBP", value=df.loc[df['Status'] == 'Delivered'].Amount.sum(), delta_color="inverse")
- col2.metric(label="Lost Sales in LBP", value=df.loc[df['Status'] == 'Canceled'].Amount.sum(), delta_color="inverse")
+ col1.metric(label="Revenue in LBP", value=asd1, delta_color="inverse")
+ col2.metric(label="Lost Sales in LBP", value=asc1, delta_color="inverse")
 
  ### Setting up the graph filtering of selection
  App = hy.selectbox('Customer Analysis',
@@ -389,10 +406,10 @@ def app4():
      amc=px.histogram(data_frame=dfna, x='Amount', y='Name',text_auto=True)
      amc.update_layout(title="Revenue of Customers",xaxis_title="",yaxis_title="Name of Customer")
      amc
-     st.write('This visual is important for Diwan to find its highest revenue generated customers, as this assists Diwan in implementing a loyalty program for their customers. Using the filter we are able to find the top # of customers and their respectable revenues.')
+     st.write(f'This visual is important for Diwan to find its highest revenue generated customers, as this assists Diwan in implementing a loyalty program for their customers. Using the filter we are able to find the top {n_size} of customers and their respectable revenues.')
  elif App == 'Wait Time to Deploy':
      tdc
-     st.write('On average there is an 80-minute wait to deploy an order, but the majority are between 44 and 58-minutes. This shows us the distribution of wait times before an order is deployed as this is important to achieve a better service level and compete with other competitors.')
+     st.write(f'On average there is an 80-minute wait to deploy an order, but the majority are between {ttdm}, and {ttdi} minutes. This shows us the distribution of wait times before an order is deployed as this is important to achieve a better service level and compete with other competitors.')
  elif App == 'Time of Incoming Orders':
      tc
      st.write('Understanding when orders are coming in is important to allocate the right human resource, as we can see between 10 am and 2 pm we can see most orders are coming in then declining at a steady rate.')
@@ -409,7 +426,7 @@ def app4():
      addresss = px.bar(addy, y='Adress', x = 'count',text_auto=True)
      addresss.update_layout(title="Demand per Area",xaxis_title="",yaxis_title="Location")
      addresss
-     st.write('Due to the location of Diwan, most orders are coming in from Bchamoun, followed by Aramoun, and finally Khaldeh. This is due to the prime location that enables Diwan to service these 3 major areas. These are the top 5 locations that are shown but can be changed to top # using the filter above.')
+     st.write(f'Due to the location of Diwan, most orders are coming in from Bchamoun, followed by Aramoun, and finally Khaldeh. This is due to the prime location that enables Diwan to service these 3 major areas. The graph is showing the top {slides} locations, depending on desired number')
  elif App == 'All':
      n_size = st.slider('Top n Customers', 0, 90, 5)
      dfna = df.groupby("Name", as_index=False).sum().sort_values("Amount", ascending=False).head(n_size)
