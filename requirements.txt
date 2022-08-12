@@ -1,8 +1,0 @@
-streamlit
-pandas
-plotly
-seaborn
-markdown
-hydralit_components
-hydralit
-streamlit_metrics
