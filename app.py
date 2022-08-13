@@ -160,7 +160,7 @@ def main_page():
  with col1:
      st.write(' ')
  with col2:
-     st.image("https://play-lh.googleusercontent.com/qPmIH0OemtPoTXyEztnpZVW-35sEWvrw99DIX6n1sklf1mDekUxtMzyInpJlTOATsp5B") # Adding Diwan hyper market picture
+     st.image("https://play-lh.googleusercontent.com/qPmIH0OemtPoTXyEztnpZVW-35sEWvrw99DIX6n1sklf1mDekUxtMzyInpJlTOATsp5B",width=150) # Adding Diwan hyper market picture
  with col3:
     st.write(' ')
 
