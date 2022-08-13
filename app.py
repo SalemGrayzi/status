@@ -197,11 +197,13 @@ def main_page():
  link1 = '[Full Report]https://drive.google.com/uc?export=download&id=1xiEgoeXq9oxBc4ZQELjsY36mHyrbHFXV'
  st.markdown(link1, unsafe_allow_html=True)
     
-  head = st.checkbox('First Few Rows') # Making a checkbox for showing df.head
+ c1,c2 = st.columns(2)
+    
+ head = st.checkbox('First Few Rows') # Making a checkbox for showing df.head
  if head:
-     st.write(df.head())
+     c1.write(df.head())
 
- if st.checkbox('Show all graphs'): # Adding all graph into a single button to see
+ if c2.checkbox('Show all graphs'): # Adding all graph into a single button to see
     st.subheader('All Graphs')
     container1 = st.container()
     g1, g2,g21 = st.columns(3)
