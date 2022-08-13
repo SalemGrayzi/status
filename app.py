@@ -2,7 +2,7 @@ import streamlit as st
 
 st.markdown(
     '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">',
-    unsafe_allow_html=True,
+    unsafe_allow_html=false,
 )
 query_params = st.experimental_get_query_params()
 tabs = ["Home", "About", "Contact"]
@@ -29,8 +29,8 @@ tabs_html = f"""
     </ul>
 """
 
-st.markdown(tabs_html, unsafe_allow_html=True)
-st.markdown("<br>", unsafe_allow_html=True)
+st.markdown(tabs_html, unsafe_allow_html=false)
+st.markdown("<br>", unsafe_allow_html=false)
 
 if active_tab == "Home":
     st.write("Welcome to my lovely page!")
