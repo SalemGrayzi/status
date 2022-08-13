@@ -532,6 +532,6 @@ page_names_to_funcs[selected_page]()
 
 max_width_100_percent = st.sidebar.checkbox("Max-width: 100%?", False)
 if not max_width_100_percent:
-    max_width = st.sidebar.slider("Select max-width in px", 100, 2000, 1200, 100)
+    max_width = st.slider("Select max-width in px", 100, 2000, 1200, 100)
 else:
     max_width = 1200
