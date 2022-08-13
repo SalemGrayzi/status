@@ -1,6 +1,6 @@
 streamlit 
-hydralit 
-hydralit_components 
+hydralit
+HydraHeadApp
 pandas 
 plotly 
 seaborn 
