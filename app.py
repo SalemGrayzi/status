@@ -1,4 +1,27 @@
+### Importing the required packages
+import pandas as pd
+import numpy as np
 import streamlit as st
+import plotly.express as px
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+from PIL import Image
+import streamlit.components.v1 as components
+import seaborn as sns
+import matplotlib.pyplot as plt
+import markdown
+import hydralit_components as hc
+import time
+from streamlit_metrics import metric, metric_row
+import io
+import hydralit as hy
+st.set_page_config(layout="wide")
+
+my_bar = st.progress(0)
+for percent_complete in range(100):
+    time.sleep(0.1)
+    my_bar.progress(percent_complete + 1)
+st.write('Done Loading')
 
 st.markdown(
     '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">',
