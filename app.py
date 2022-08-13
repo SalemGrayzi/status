@@ -20,11 +20,11 @@ with pi2:
     st.write(' ') # Adding Diwan hyper market picture
 with pi3:
    st.write(' ')
-my_bar = st.progress(0)
-for percent_complete in range(100):
-    time.sleep(0.1)
-    my_bar.progress(percent_complete + 1)
-st.write('Done Loading')
+#my_bar = st.progress(0)
+#for percent_complete in range(100):
+#    time.sleep(0.1)
+#    my_bar.progress(percent_complete + 1)
+#st.write('Done Loading')
 
 df= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Statuscsv.csv')
 
