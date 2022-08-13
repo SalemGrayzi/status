@@ -6,3 +6,4 @@ plotly
 seaborn 
 markdown 
 streamlit_metrics
+millify
