@@ -217,7 +217,8 @@ def main_page():
 
     with container2:
         with g3:
-            split_size = st.slider('Top n Drivers', 0, 90, 5)
+            s1,s2 = st.columns(2)
+            split_size = s1.slider('Top n Drivers', 0, 90, 5)
             dfd = df.groupby(['Driver Name']).size().to_frame().sort_values([0], ascending = False).head(split_size).reset_index()
             dfd.columns = ['Driver Name', 'count']
             drv = px.bar(dfd, y='Driver Name', x = 'count',text_auto=True)
@@ -248,7 +249,8 @@ def main_page():
         with g9:
             onmount2
         with g01:
-            n_size = st.slider('Top n Customers', 0, 90, 5)
+            s11,s22 = st.columns(2)
+            n_size = s11.slider('Top n Customers', 0, 90, 5)
             dfna = df.groupby("Name", as_index=False).sum().sort_values("Amount", ascending=False).head(n_size)
             amc=go.Figure(go.Bar(x=dfna["Amount"], y=dfna["Name"]))
             amc=px.histogram(data_frame=dfna, x='Amount', y='Name',text_auto=True)
@@ -269,7 +271,8 @@ def main_page():
         with g13:
             tdc
         with g04:
-            slides = st.slider('Top n Locations', 0, 90, 5)
+            s111,s222 = st.columns(2)
+            slides = s111.slider('Top n Locations', 0, 90, 5)
             addy = df.groupby(['Address']).size().to_frame().sort_values([0], ascending = False).head(slides).reset_index()
             addy.columns = ['Adress', 'count']
             addresss = px.bar(addy, y='Adress', x = 'count', text_auto=True)
@@ -301,7 +304,8 @@ def page2():
         st.write('In this graph we can see the proportions of each picker from their total orders based on cancelation, and completed orders. The Blue shows the orders that have been completed comapared to red which shows the cancelations. As we can see there are couple of pickers that have a higher probability of their orders being canceled this is why we need to get to the bottom of the issue to fix it.')
  elif PDA1 == 'Drivers':
 #        driver
-        split_size = st.slider('Top n Drivers', 0, 90, 5)
+        s1,s2 = st.columns(2)
+        split_size = s1.slider('Top n Drivers', 0, 90, 5)
         dfd = df.groupby(['Driver Name']).size().to_frame().sort_values([0], ascending = False).head(split_size).reset_index()
         dfd.columns = ['Driver Name', 'count']
         drv = px.bar(dfd, y='Driver Name', x = 'count',text_auto=True)
