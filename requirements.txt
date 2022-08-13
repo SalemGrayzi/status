@@ -4,6 +4,6 @@ plotly
 scikit-learn
 seaborn
 markdown
-hydralit_components
-hydralit
 streamlit_metrics
+hydralit >=1.0.9
+hydralit_components >=1.0.4
