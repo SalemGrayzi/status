@@ -319,7 +319,8 @@ def page2():
  elif PDA1 == 'All':
         st.pyplot(pdapicker)
         driver
-        split_size = st.slider('Top n Drivers', 0, 90, 5)
+        s1,s2 = st.columns(2)
+        split_size = s1.slider('Top n Drivers', 0, 90, 5)
         dfd = df.groupby(['Driver Name']).size().to_frame().sort_values([0], ascending = False).head(split_size).reset_index()
         dfd.columns = ['Driver Name', 'count']
         drv = px.bar(dfd, y='Driver Name', x = 'count',text_auto=True)
@@ -383,7 +384,8 @@ def page4():
                                      ['None','Days','Revenue Per Customer','Wait Time to Deploy','Time of Incoming Orders','Address','Average Revenue Per Day','All'])
 
  if App == 'Revenue Per Customer':
-     n_size = st.slider('Top n Customers', 0, 90, 5)
+     s11,s22 = st.columns(2)
+     n_size = s11.slider('Top n Customers', 0, 90, 5)
      dfna = df.groupby("Name", as_index=False).sum().sort_values("Amount", ascending=False).head(n_size)
      amc=go.Figure(go.Bar(x=dfna["Amount"], y=dfna["Name"]))
      amc=px.histogram(data_frame=dfna, x='Amount', y='Name',text_auto=True)
@@ -403,7 +405,8 @@ def page4():
      dincome
      st.write('Days with high demand don’t necessarily mean the highest revenue generated days on average as this graph illustrates. Wednesday has the highest revenue compared to Friday with little variation between each day.')
  elif App == 'Address':
-     slides = st.slider('Top n Locations', 0, 90, 5)
+     s11,s22 = st.columns(2)
+     slides = s11.slider('Top n Locations', 0, 90, 5)
      addy = df.groupby(['Address']).size().to_frame().sort_values([0], ascending = False).head(slides).reset_index()
      addy.columns = ['Adress', 'count']
      addresss = px.bar(addy, y='Adress', x = 'count',text_auto=True)
@@ -411,7 +414,8 @@ def page4():
      addresss
      st.write(f'Due to the location of Diwan, most orders are coming in from Bchamoun, followed by Aramoun, and finally Khaldeh. This is due to the prime location that enables Diwan to service these 3 major areas. The graph is showing the top {slides} locations, depending on desired number')
  elif App == 'All':
-     n_size = st.slider('Top n Customers', 0, 90, 5)
+     s111,s222 = st.columns(2)
+     n_size = s111.slider('Top n Customers', 0, 90, 5)
      dfna = df.groupby("Name", as_index=False).sum().sort_values("Amount", ascending=False).head(n_size)
      amc=go.Figure(go.Bar(x=dfna["Amount"], y=dfna["Name"]))
      amc=px.histogram(data_frame=dfna, x='Amount', y='Name',text_auto=True)
@@ -420,7 +424,8 @@ def page4():
      tdc
      tc
      Day
-     slides = st.slider('Top n Locations', 0, 90, 5)
+     s111,s222 = st.columns(2
+     slides = s111.slider('Top n Locations', 0, 90, 5)
      addy = df.groupby(['Address']).size().to_frame().sort_values([0], ascending = False).head(slides).reset_index()
      addy.columns = ['Adress', 'count']
      addresss = px.bar(addy, y='Adress', x = 'count',text_auto=True)
