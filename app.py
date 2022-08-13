@@ -285,3 +285,8 @@ def main_page():
 
 # End of tab 1
 
+page_names_to_funcs = {
+    "Main Page": main_page}
+
+selected_page = st.sidebar.selectbox("Select a page", page_names_to_funcs.keys())
+page_names_to_funcs[selected_page]()
