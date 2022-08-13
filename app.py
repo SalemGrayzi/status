@@ -153,8 +153,6 @@ dincome.update_layout(title="Average Revenue Per Day",xaxis_title="Amount",yaxis
 
 st.cache()
 def main_page():
- st.markdown("# Main page 🎈")
- st.sidebar.markdown("# Main page 🎈")
  st.cache()
  st.title('Diwan Delivery Analysis')
  col1, col2,col3 = st.columns(3) ### Adding columns to insert the picture in the middle of the screen in column 2
@@ -285,6 +283,8 @@ def main_page():
 
 # End of tab 1
 
+#########################################################
+
 def page2():
  st.markdown("# Page 2 ❄️")
  st.sidebar.markdown("# Page 2 ❄️")
@@ -336,6 +336,8 @@ def page2():
 
 # End of tab 2
 
+#########################################################
+
 def page3():
  st.markdown("# Page 3 🎉")
  st.sidebar.markdown("# Page 3 🎉")
@@ -361,6 +363,8 @@ def page3():
      st.write(str(''))
 
 # End of tab 3
+
+#########################################################
 
 def page4():
  st.cache()
@@ -432,6 +436,9 @@ def page4():
      st.write(str(''))
 
 # End of tab 4
+
+#########################################################
+
 def page5():
  st.cache()
  st.header('Interactive Queuing Model')
@@ -497,6 +504,9 @@ def page5():
      st.form_submit_button('Press to calculate') #button to be pressed to initiate calculating
 
 # End of tab 5
+
+#########################################################
+
 def page6():
  st.write('This dashboard was made possible by Salem Gr., for Diwan Hyper Market located in Lebanon, Old Saida Road Chouaifet. The dashboard was built to help analyze Diwan’s delivery sector to assist them in lowering wait time and show data collected to make managerial decisions to improve their service levels.')
  st.write('I am an AUB graduate studying to become a data analyst by using the methods learned at AUB to solve real-world problems and assist companies in understanding the data they acquired to find issues or ways to improve in this competitive world. With the power of data analysis and my undergraduate degree in International Business and management finding and understanding issues are up to my field of expertise. This dashboard and related report are proof of what my combined degrees can offer you.')
@@ -509,6 +519,9 @@ def page6():
     st.markdown(link2, unsafe_allow_html=True)
 
 # End of tab 6
+
+#########################################################
+
 page_names_to_funcs = {
     "Main Page": main_page,
     "Page 2": page2,
