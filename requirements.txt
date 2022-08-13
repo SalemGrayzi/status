@@ -1,9 +1,9 @@
 streamlit
+hydralit
+hydralit_components
 pandas
 plotly
 scikit-learn
 seaborn
 markdown
 streamlit_metrics
-hydralit >=1.0.9
-hydralit_components >=1.0.4
