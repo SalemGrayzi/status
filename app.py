@@ -21,9 +21,6 @@ for percent_complete in range(100):
     my_bar.progress(percent_complete + 1)
 st.write('Done Loading')
 
-st.markdown(tabs_html, unsafe_allow_html=True)
-st.markdown("<br>", unsafe_allow_html=True)
-# Contents of ~/my_app/streamlit_app.py
 import streamlit as st
 
 def main_page():
