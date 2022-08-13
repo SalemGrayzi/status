@@ -12,6 +12,14 @@ import markdown
 from streamlit_metrics import metric, metric_row
 import time
 st.set_page_config(layout="wide")
+col1, col2,col3 = st.columns(3) ### Adding columns to insert the picture in the middle of the screen in column 2
+
+with col1:
+    st.write("https://play-lh.googleusercontent.com/qPmIH0OemtPoTXyEztnpZVW-35sEWvrw99DIX6n1sklf1mDekUxtMzyInpJlTOATsp5B",width=150)
+with col2:
+    st.image(' ') # Adding Diwan hyper market picture
+with col3:
+   st.write(' ')
 
 my_bar = st.progress(0)
 for percent_complete in range(100):
