@@ -285,8 +285,60 @@ def main_page():
 
 # End of tab 1
 
+def page2():
+ st.markdown("# Page 2 ❄️")
+ st.sidebar.markdown("# Page 2 ❄️")
+ st.cache()
+### A brief introduction on this section
+ st.write('In this section, we are going to be talking about how the pickers are utilizing the PDA equipment as well as how it might affect an order status. Here we will find the distribution of PDA usage across the pickers to find the percentage of if they are using said equipment or not. After finding the percentage of usage of PDA we turn our heads to find the proportions of each picker if their orders were canceled or delivered as this might arise some issues that some pickers might be falling behind whether it’s their service or an issue they are facing for higher cancelation rates.')
+
+### Setting a selectbox with all graphs related to this section
+ PDA1 = hy.selectbox('Employee Related Analysis',
+                                    ['None','Pickers','Picker and Order Status','PDA Usage','Drivers','PDA and Status of Order','All'])
+
+### Setting up the selectbox with if this do this else this
+ if PDA1 == 'Pickers':
+    st.pyplot(pdapicker)
+    st.write('Here we can see each picker that is using a PDA or not. as we can see many of the pickers are not using the PDA in thier daily operations.')
+ elif PDA1 == 'PDA Usage':
+        pda
+        st.write(f'From this graph we can analyze that {round(hp1,2)}% of pickers are using PDAs compared to {round(hp,2)}% of them not using PDA. This shows that we should find a way to push the usage of PDAs across the pickers.')
+ elif PDA1 == 'Picker and Order Status':
+        stpk
+        st.write('In this graph we can see the proportions of each picker from their total orders based on cancelation, and completed orders. The Blue shows the orders that have been completed comapared to red which shows the cancelations. As we can see there are couple of pickers that have a higher probability of their orders being canceled this is why we need to get to the bottom of the issue to fix it.')
+ elif PDA1 == 'Drivers':
+#        driver
+        split_size = st.slider('Top n Drivers', 0, 90, 5)
+        dfd = df.groupby(['Driver Name']).size().to_frame().sort_values([0], ascending = False).head(split_size).reset_index()
+        dfd.columns = ['Driver Name', 'count']
+        drv = px.bar(dfd, y='Driver Name', x = 'count',text_auto=True)
+        drv.update_layout(title="Number of Orders per Driver",xaxis_title="",yaxis_title="Driver")
+        drv
+        st.write(f'The top {split_size} drivers are shown, with the corresponding number of orders throughout the year')
+ elif PDA1 == 'PDA and Status of Order':
+        st.pyplot(gh)
+        st.write('This graph is very important as it shows us how does PDA affect the order status. As we can see orders that were canceled with the usage of PDA has a much lower ratio compared to not using PDAs. Even though delivered orders are similar to each other but with cancelation there is a big difference between them.')
+
+ elif PDA1 == 'All':
+        st.pyplot(pdapicker)
+        driver
+        split_size = st.slider('Top n Drivers', 0, 90, 5)
+        dfd = df.groupby(['Driver Name']).size().to_frame().sort_values([0], ascending = False).head(split_size).reset_index()
+        dfd.columns = ['Driver Name', 'count']
+        drv = px.bar(dfd, y='Driver Name', x = 'count',text_auto=True)
+        drv.update_layout(title="Number of Orders per Driver",xaxis_title="",yaxis_title="Driver")
+        drv
+        pda
+        stpk
+        st.pyplot(gh)
+ elif PDA1 == 'None':
+        st.write(str(''))
+
+# End of tab 2
+
 page_names_to_funcs = {
-    "Main Page": main_page}
+    "Main Page": main_page,
+    "Page 2": page2}
 
 selected_page = st.sidebar.selectbox("Select a page", page_names_to_funcs.keys())
 page_names_to_funcs[selected_page]()
