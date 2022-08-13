@@ -1,5 +1,4 @@
 ### Importing the required packages
-from streamlit.scriptrunner.script_run_context import get_script_run_ctx
 import pandas as pd
 import numpy as np
 import streamlit as st
