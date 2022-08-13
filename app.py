@@ -164,14 +164,14 @@ st.cache()
 def main_page():
  st.cache()
  st.title('Diwan Delivery Analysis')
- col1, col2,col3 = st.columns(3) ### Adding columns to insert the picture in the middle of the screen in column 2
+ #col1, col2,col3 = st.columns(3) ### Adding columns to insert the picture in the middle of the screen in column 2
 
- with col1:
-     st.write(' ')
- with col2:
-     st.image("https://play-lh.googleusercontent.com/qPmIH0OemtPoTXyEztnpZVW-35sEWvrw99DIX6n1sklf1mDekUxtMzyInpJlTOATsp5B",width=150) # Adding Diwan hyper market picture
- with col3:
-    st.write(' ')
+# with col1:
+#     st.write(' ')
+# with col2:
+#     st.image("https://play-lh.googleusercontent.com/qPmIH0OemtPoTXyEztnpZVW-35sEWvrw99DIX6n1sklf1mDekUxtMzyInpJlTOATsp5B",width=150) # Adding Diwan hyper market picture
+# with col3:
+#    st.write(' ')
 
  head = st.checkbox('First Few Rows') # Making a checkbox for showing df.head
 
