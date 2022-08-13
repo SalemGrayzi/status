@@ -293,7 +293,7 @@ def page2():
  st.write('In this section, we are going to be talking about how the pickers are utilizing the PDA equipment as well as how it might affect an order status. Here we will find the distribution of PDA usage across the pickers to find the percentage of if they are using said equipment or not. After finding the percentage of usage of PDA we turn our heads to find the proportions of each picker if their orders were canceled or delivered as this might arise some issues that some pickers might be falling behind whether it’s their service or an issue they are facing for higher cancelation rates.')
 
 ### Setting a selectbox with all graphs related to this section
- PDA1 = hy.selectbox('Employee Related Analysis',
+ PDA1 = st.selectbox('Employee Related Analysis',
                                     ['None','Pickers','Picker and Order Status','PDA Usage','Drivers','PDA and Status of Order','All'])
 
 ### Setting up the selectbox with if this do this else this
