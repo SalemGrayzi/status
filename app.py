@@ -523,12 +523,12 @@ def page6():
 #########################################################
 
 page_names_to_funcs = {
-    "Main Page": main_page,
-    "Page 2": page2,
-    "Page 3": page3,
-    "Page 4": page4,
-    "Page 5": page5,
-    "Page 6": page6}
+    "Main Page 🏪": main_page,
+    "Employee Related Analysis 💼": page2,
+    "Ordering Methods 📲": page3,
+    "Customer Analysis 📈": page4,
+    "Queuing Model ⌚": page5,
+    "About 🤵": page6}
 
 selected_page = st.sidebar.selectbox("Select a page", page_names_to_funcs.keys())
 page_names_to_funcs[selected_page]()
