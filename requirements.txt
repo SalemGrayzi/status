@@ -14,4 +14,4 @@ import time
 from streamlit_metrics import metric, metric_row
 import io
 import hydralit as hy
- from millify import millify
+from millify import millify
