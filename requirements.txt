@@ -8,3 +8,4 @@ hydralit_components
 hydralit
 streamlit_metrics
 millify
+numpy
