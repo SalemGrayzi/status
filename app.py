@@ -15,16 +15,11 @@ st.set_page_config(layout="wide")
 pi1, pi2,pi3 = st.columns(3) ### Adding columns to insert the picture in the middle of the screen in column 2
 
 with pi1:
-    st.image("https://play-lh.googleusercontent.com/qPmIH0OemtPoTXyEztnpZVW-35sEWvrw99DIX6n1sklf1mDekUxtMzyInpJlTOATsp5B",width=150)
+    st.image("https://play-lh.googleusercontent.com/qPmIH0OemtPoTXyEztnpZVW-35sEWvrw99DIX6n1sklf1mDekUxtMzyInpJlTOATsp5B",width=200)
 with pi2:
     st.write(' ') # Adding Diwan hyper market picture
 with pi3:
    st.write(' ')
-#my_bar = st.progress(0)
-#for percent_complete in range(100):
-#    time.sleep(0.1)
-#    my_bar.progress(percent_complete + 1)
-#st.write('Done Loading')
 
 df= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Statuscsv.csv')
 
