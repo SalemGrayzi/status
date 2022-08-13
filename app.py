@@ -530,7 +530,7 @@ page_names_to_funcs = {
     "Queuing Model ⌚": page5,
     "About 🤵": page6}
 
-pag1,pag2 = st.columns(6)
+pag1,pag2 = st.columns(2)
 selected_page = pag1.selectbox("Select a page", page_names_to_funcs.keys())
 page_names_to_funcs[selected_page]()
 
