@@ -12,10 +12,10 @@ import markdown
 from streamlit_metrics import metric, metric_row
 import time
 st.set_page_config(layout="wide")
-pi1, pi2 = st.columns(2) ### Adding columns to insert the picture in the middle of the screen in column 2
+pi1, pi2,pi3 = st.columns(3) ### Adding columns to insert the picture in the middle of the screen in column 2
 
-with pi1:
-    st.image("https://play-lh.googleusercontent.com/qPmIH0OemtPoTXyEztnpZVW-35sEWvrw99DIX6n1sklf1mDekUxtMzyInpJlTOATsp5B",width=100)
+with pi3:
+    st.image("https://play-lh.googleusercontent.com/qPmIH0OemtPoTXyEztnpZVW-35sEWvrw99DIX6n1sklf1mDekUxtMzyInpJlTOATsp5B",width=180)
 
 
 df= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Statuscsv.csv')
@@ -530,6 +530,7 @@ page_names_to_funcs = {
     "Queuing Model ⌚": page5,
     "About 🤵": page6}
 
-selected_page = pi2.selectbox("Select a page", page_names_to_funcs.keys())
+pag1,pag2 = st.columns(6)
+selected_page = pag1.selectbox("Select a page", page_names_to_funcs.keys())
 page_names_to_funcs[selected_page]()
 
