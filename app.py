@@ -10,6 +10,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import markdown
 from streamlit_metrics import metric, metric_row
+import time
 st.set_page_config(layout="wide")
 
 my_bar = st.progress(0)
