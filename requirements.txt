@@ -3,7 +3,6 @@ hydralit
 hydralit_components
 pandas
 plotly
-scikit-learn
 seaborn
 markdown
 streamlit_metrics
