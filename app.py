@@ -10,7 +10,7 @@ import streamlit.components.v1 as components
 import seaborn as sns
 import matplotlib.pyplot as plt
 import markdown
-from hydralit import HydraHeadApp
+from hydralit import HydraHeadApp as hy
 import time
 from streamlit_metrics import metric, metric_row
 import io
