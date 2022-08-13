@@ -343,7 +343,7 @@ def page3():
  st.write('In this section, we focus on which ordering method is bringing in the most revenue and causing lost opportunity sales. The two methods are using the phone to order, or the application. Finally, we would like to find which ordering method has a higher probability of lost sales, and which generates the most revenue.')
 
 ### Setting up the selectbox for the following graphs
- App = hy.selectbox('Application or Call Analysis',
+ App = st.selectbox('Application or Call Analysis',
                                      ['None', 'App vs. Call Revenues and Lost Sales','Status of Delivery Using App','All'])
 
  if App == 'App vs. Call Revenues and Lost Sales':
@@ -380,7 +380,7 @@ def page4():
  col2.metric(label="Lost Sales in LBP", value=millify(asc, precision=2), delta_color="inverse")
 
  ### Setting up the graph filtering of selection
- App = hy.selectbox('Customer Analysis',
+ App = st.selectbox('Customer Analysis',
                                      ['None','Days','Revenue Per Customer','Wait Time to Deploy','Time of Incoming Orders','Address','Average Revenue Per Day','All'])
 
  if App == 'Revenue Per Customer':
