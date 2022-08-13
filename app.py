@@ -532,4 +532,6 @@ page_names_to_funcs = {
     "About 🤵": page6}
 
 selected_page = st.selectbox("Select a page", page_names_to_funcs.keys())
+
+selected_page = st.radio("Select a page", page_names_to_funcs.keys())
 page_names_to_funcs[selected_page]()
