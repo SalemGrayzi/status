@@ -199,9 +199,9 @@ def main_page():
     
  c1,c2 = st.columns(2)
     
- head = st.checkbox('First Few Rows') # Making a checkbox for showing df.head
+ head = c1.checkbox('First Few Rows') # Making a checkbox for showing df.head
  if head:
-     c1.write(df.head())
+     st.write(df.head())
 
  if c2.checkbox('Show all graphs'): # Adding all graph into a single button to see
     st.subheader('All Graphs')
