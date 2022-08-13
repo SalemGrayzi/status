@@ -159,19 +159,6 @@ st.cache()
 def main_page():
  st.cache()
  st.title('Diwan Delivery Analysis')
- #col1, col2,col3 = st.columns(3) ### Adding columns to insert the picture in the middle of the screen in column 2
-
-# with col1:
-#     st.write(' ')
-# with col2:
-#     st.image("https://play-lh.googleusercontent.com/qPmIH0OemtPoTXyEztnpZVW-35sEWvrw99DIX6n1sklf1mDekUxtMzyInpJlTOATsp5B",width=150) # Adding Diwan hyper market picture
-# with col3:
-#    st.write(' ')
-
- head = st.checkbox('First Few Rows') # Making a checkbox for showing df.head
-
- if head:
-     st.write(df.head())
 
  ### Adding comments onto the home tab for understanding the dashboard
  st.header('What is the objective of this Dashboard?')
@@ -209,6 +196,10 @@ def main_page():
  st.write('For the full analysis press the following link to be redirected to the report')
  link1 = '[Full Report]https://drive.google.com/uc?export=download&id=1xiEgoeXq9oxBc4ZQELjsY36mHyrbHFXV'
  st.markdown(link1, unsafe_allow_html=True)
+    
+  head = st.checkbox('First Few Rows') # Making a checkbox for showing df.head
+ if head:
+     st.write(df.head())
 
  if st.checkbox('Show all graphs'): # Adding all graph into a single button to see
     st.subheader('All Graphs')
