@@ -165,6 +165,47 @@ def main_page():
     st.write(' ')
 
  head = st.checkbox('First Few Rows') # Making a checkbox for showing df.head
+
+ if head:
+     st.write(df.head())
+
+ ### Adding comments onto the home tab for understanding the dashboard
+ st.header('What is the objective of this Dashboard?')
+ st.write('In this dashboard, we are trying to analyze Diwan’s Delivery sector, by making visuals to help us understand what is happening on the ground as it brings many managerial insights about how the company is doing throughout the year. This dashboard will go into three various sub-sections in the delivery sector. The three sub-sections that we will be focusing on are:')
+ st.write('1-	Employees related analysis')
+ st.write('2-	Type of methods used in ordering')
+ st.write('3-	Customer analysis and the area they are ordering from')
+ st.write('After going through each tab and its respectable analysis we would understand in more detail how this information can enable us to adapt accordingly. Each tab represents a certain sub-section and a quick analysis of what is being presented.')
+
+ ### Adding Tableau dashboard link for secondary dashboard
+ st.write('For additional visuals feel free to press the following link')
+ link = '[Tableau]https://public.tableau.com/app/profile/salem.gr/viz/DiwanDeliverySectorAnalysis/DiwanDeliverySectorAnalysis'
+ st.markdown(link, unsafe_allow_html=True)
+
+ ### Importing the table ive made on the queuing model using csv github
+ st.write('The following button has three models depending on demand Diwan should hire accordingly with its following costs')
+ df1= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Queing%20Model.csv')
+
+## defining a code to convert df1 into utf-8
+ def convert_df(df1):
+     return df1.to_csv().encode('utf-8')
+
+## Converting the csv file to utf-8
+ csv = convert_df(df1)
+
+### Creating a download button to get the queuing model
+ st.download_button(
+     label="Download Queuing Model",
+     data=csv,
+     file_name='Queuing_Model.csv',
+     mime='text/csv',
+  )
+
+ ### Word documents from google drive where it has the full report once clicked it downloads
+ st.write('For the full analysis press the following link to be redirected to the report')
+ link1 = '[Full Report]https://drive.google.com/uc?export=download&id=1xiEgoeXq9oxBc4ZQELjsY36mHyrbHFXV'
+ st.markdown(link1, unsafe_allow_html=True)
+
  if st.checkbox('Show all graphs'): # Adding all graph into a single button to see
     st.subheader('All Graphs')
     container1 = st.container()
@@ -240,47 +281,7 @@ def main_page():
             addresss = px.bar(addy, y='Adress', x = 'count', text_auto=True)
             addresss.update_layout(title="Demand per Area",xaxis_title="",yaxis_title="Location")
             addresss
-    dincome
- if head:
-     st.write(df.head())
-
- ### Adding comments onto the home tab for understanding the dashboard
- st.header('What is the objective of this Dashboard?')
- st.write('In this dashboard, we are trying to analyze Diwan’s Delivery sector, by making visuals to help us understand what is happening on the ground as it brings many managerial insights about how the company is doing throughout the year. This dashboard will go into three various sub-sections in the delivery sector. The three sub-sections that we will be focusing on are:')
- st.write('1-	Employees related analysis')
- st.write('2-	Type of methods used in ordering')
- st.write('3-	Customer analysis and the area they are ordering from')
- st.write('After going through each tab and its respectable analysis we would understand in more detail how this information can enable us to adapt accordingly. Each tab represents a certain sub-section and a quick analysis of what is being presented.')
-
- ### Adding Tableau dashboard link for secondary dashboard
- st.write('For additional visuals feel free to press the following link')
- link = '[Tableau]https://public.tableau.com/app/profile/salem.gr/viz/DiwanDeliverySectorAnalysis/DiwanDeliverySectorAnalysis'
- st.markdown(link, unsafe_allow_html=True)
-
- ### Importing the table ive made on the queuing model using csv github
- st.write('The following button has three models depending on demand Diwan should hire accordingly with its following costs')
- df1= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Queing%20Model.csv')
-
-## defining a code to convert df1 into utf-8
- def convert_df(df1):
-     return df1.to_csv().encode('utf-8')
-
-## Converting the csv file to utf-8
- csv = convert_df(df1)
-
-### Creating a download button to get the queuing model
- st.download_button(
-     label="Download Queuing Model",
-     data=csv,
-     file_name='Queuing_Model.csv',
-     mime='text/csv',
-  )
-
- ### Word documents from google drive where it has the full report once clicked it downloads
- st.write('For the full analysis press the following link to be redirected to the report')
- link1 = '[Full Report]https://drive.google.com/uc?export=download&id=1xiEgoeXq9oxBc4ZQELjsY36mHyrbHFXV'
- st.markdown(link1, unsafe_allow_html=True)
-
+            dincome
 # End of tab 1
 
 #########################################################
