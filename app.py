@@ -153,37 +153,31 @@ st.cache()
 dincome = px.histogram(df, y="Day Name",x='Amount', histfunc='avg',text_auto=True,category_orders={'Day Name':["Monday","Tuesday","Wednesday", "Thursday", "Friday", "Saturday","Sunday"]})
 dincome.update_layout(title="Average Revenue Per Day",xaxis_title="Amount",yaxis_title="Day Name")
 
-
+st.cache()
 def main_page():
     st.markdown("# Main page 🎈")
     st.sidebar.markdown("# Main page 🎈")
     st.cache()
     st.title('Diwan Delivery Analysis')
     col1, col2,col3 = st.columns(3) ### Adding columns to insert the picture in the middle of the screen in column 2
-
     with col1:
         st.write(' ')
     with col2:
         st.image("https://play-lh.googleusercontent.com/qPmIH0OemtPoTXyEztnpZVW-35sEWvrw99DIX6n1sklf1mDekUxtMzyInpJlTOATsp5B") # Adding Diwan hyper market picture
     with col3:
         st.write(' ')
-
     head = st.checkbox('First Few Rows') # Making a checkbox for showing df.head
     if st.checkbox('Show all graphs'): # Adding all graph into a single button to see
         st.subheader('All Graphs')
         container1 = st.container()
         g1, g2,g21 = st.columns(3)
-
         with container1:
             with g1:
                 Day
         with g21:
                driver
-
-
         container2 = st.container()
         g3, g4, g41 = st.columns(3)
-
         with container2:
             with g3:
                 split_size = st.slider('Top n Drivers', 0, 90, 5)
