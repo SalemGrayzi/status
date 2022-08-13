@@ -1,2 +1,8 @@
 streamlit 
 hydralit 
+hydralit_components 
+pandas 
+plotly 
+seaborn 
+markdown 
+streamlit_metrics
