@@ -12,15 +12,14 @@ import markdown
 from streamlit_metrics import metric, metric_row
 import time
 st.set_page_config(layout="wide")
-col1, col2,col3 = st.columns(3) ### Adding columns to insert the picture in the middle of the screen in column 2
+pi1, pi2,pi3 = st.columns(3) ### Adding columns to insert the picture in the middle of the screen in column 2
 
-with col1:
+with pi1:
     st.write("https://play-lh.googleusercontent.com/qPmIH0OemtPoTXyEztnpZVW-35sEWvrw99DIX6n1sklf1mDekUxtMzyInpJlTOATsp5B",width=150)
-with col2:
+with pi2:
     st.image(' ') # Adding Diwan hyper market picture
-with col3:
+with pi3:
    st.write(' ')
-
 my_bar = st.progress(0)
 for percent_complete in range(100):
     time.sleep(0.1)
@@ -159,6 +158,8 @@ st.cache()
 dincome = px.histogram(df, y="Day Name",x='Amount', histfunc='avg',text_auto=True,category_orders={'Day Name':["Monday","Tuesday","Wednesday", "Thursday", "Friday", "Saturday","Sunday"]})
 dincome.update_layout(title="Average Revenue Per Day",xaxis_title="Amount",yaxis_title="Day Name")
 
+
+###################################### tab 1
 st.cache()
 def main_page():
  st.cache()
