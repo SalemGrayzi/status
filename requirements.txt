@@ -1,6 +1,6 @@
 streamlit 
 hydralit
-from hydralit import HydraHeadApp
+HydraHeadApp
 pandas 
 plotly 
 seaborn 
