@@ -1,6 +1,5 @@
 streamlit 
-hydralit
-HydraHeadApp
+pip install -U hydralit
 pandas 
 plotly 
 seaborn 
