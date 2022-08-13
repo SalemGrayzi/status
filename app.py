@@ -287,8 +287,6 @@ def main_page():
 #########################################################
 
 def page2():
- st.markdown("# Page 2 ❄️")
- st.sidebar.markdown("# Page 2 ❄️")
  st.cache()
 ### A brief introduction on this section
  st.write('In this section, we are going to be talking about how the pickers are utilizing the PDA equipment as well as how it might affect an order status. Here we will find the distribution of PDA usage across the pickers to find the percentage of if they are using said equipment or not. After finding the percentage of usage of PDA we turn our heads to find the proportions of each picker if their orders were canceled or delivered as this might arise some issues that some pickers might be falling behind whether it’s their service or an issue they are facing for higher cancelation rates.')
@@ -340,8 +338,6 @@ def page2():
 #########################################################
 
 def page3():
- st.markdown("# Page 3 🎉")
- st.sidebar.markdown("# Page 3 🎉")
  st.cache()
  st.write('In this section, we focus on which ordering method is bringing in the most revenue and causing lost opportunity sales. The two methods are using the phone to order, or the application. Finally, we would like to find which ordering method has a higher probability of lost sales, and which generates the most revenue.')
 
