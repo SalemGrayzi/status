@@ -281,7 +281,14 @@ def main_page():
             addresss = px.bar(addy, y='Adress', x = 'count', text_auto=True)
             addresss.update_layout(title="Demand per Area",xaxis_title="",yaxis_title="Location")
             addresss
+    container8 = st.container()
+    g15,g16 = st.columns(2)
+
+    with container8:
+        with g15:
             dincome
+        with g16:
+            
 # End of tab 1
 
 #########################################################
