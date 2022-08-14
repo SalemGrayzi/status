@@ -369,9 +369,15 @@ def page3():
      sto
      st.write('The ratio between delivered and canceled between the two ordering methods is significant as we can see phone calls have a higher probability to be canceled compared to applications. This could indicate an issue in the call center resulting in more canceled orders.')
  elif App == 'All':
-     onmount
-     onmount2
-     sto
+    containeraca = st.container()
+    aca1,aca2,aca3 = st.columns(3)
+
+    with containeraca:
+        with aca1:
+            onmount
+        with aca3:
+            onmount2
+            sto
  elif App == 'None':
      st.write(str(''))
 
