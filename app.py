@@ -524,7 +524,6 @@ def page5():
      if (result < 0 or result > 1) : #if Utilization is less than 0 and greater than 1 returns an error
         st.error('Inavlid Model')
      else:
-        #st.write(f'Utilization of pickers {round(result*100,2)}%') # Rounding Utilization and turning it into percent
         sc=(result**np.sqrt(2*(emp+1)))/orde # formula to calculate the first part of the equation using the numbers that have been input
         try:
             uf=1/(1-(orde/(emp*cap)))
@@ -532,18 +531,12 @@ def page5():
             uf = 0# then returning 0 as output
         mint=uf*sc # calculating orders per minute
         wait=mint*60 # then turning it into hours
-        #dp=st.write(f'On average minutes {round(wait, 2)} before order deployment') # writing the results of minutes on average
         lc=costp*emp # calculating labor costs
         wc=costc*60 # calculating the cost of call per hour
         wcr=wc*rate # turning it into the black market exhange of LBP
         wcrr=mint*wcr*orde # total cost of call per hour
         total=lc+wcrr # total cost of labor and call
-        # Writing the results from the calculations
-        #st.write(f'Labor cost for {emp} pickers would be {my_value(round(lc))} LBP per hour')
-        #st.write(f'Call cost for {orde} customers waiting would be {my_value(round(wcrr))} LBP per hour')
-        #st.write(f'Total cost would be {my_value(round(total))} LBP per hour')
         totalusd=total/rate
-        #st.write(f'Total cost in U.S.D would be ${round(totalusd,2)} per hour')
         qm1, qm2, qm3 = st.columns(3)
         qm1.metric("Picker Utilization", value=round(result*100,2))
         qm2.metric("Avg. Wait Time", value=round(wait, 2))
