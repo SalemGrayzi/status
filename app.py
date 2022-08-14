@@ -441,24 +441,41 @@ def page4():
      addresss
      st.write(f'Due to the location of Diwan, most orders are coming in from Bchamoun, followed by Aramoun, and finally Khaldeh. This is due to the prime location that enables Diwan to service these 3 major areas. The graph is showing the top {slides} locations, depending on desired number')
  elif App == 'All':
-     s111,s222 = st.columns(2)
-     n_size = s111.slider('Top n Customers', 0, 90, 5)
-     dfna = df.groupby("Name", as_index=False).sum().sort_values("Amount", ascending=False).head(n_size)
-     amc=go.Figure(go.Bar(x=dfna["Amount"], y=dfna["Name"]))
-     amc=px.histogram(data_frame=dfna, x='Amount', y='Name',text_auto=True)
-     amc.update_layout(title="Revenue of Customers",xaxis_title="",yaxis_title="Name of Customer")
-     amc
-     tdc
-     tc
-     Day
-     s111,s222 = st.columns(2)
-     slides = s111.slider('Top n Locations', 0, 90, 5)
-     addy = df.groupby(['Address']).size().to_frame().sort_values([0], ascending = False).head(slides).reset_index()
-     addy.columns = ['Adress', 'count']
-     addresss = px.bar(addy, y='Adress', x = 'count',text_auto=True)
-     addresss.update_layout(title="Demand per Area",xaxis_title="",yaxis_title="Location")
-     addresss
-     dincome
+    containerca = st.container()
+    ca1,ca2,ca21 = st.columns(3)
+
+    with containerca:
+        with ca1:
+            n_size = st.slider('Top n Customers', 0, 90, 5)
+            dfna = df.groupby("Name", as_index=False).sum().sort_values("Amount", ascending=False).head(n_size)
+            amc=go.Figure(go.Bar(x=dfna["Amount"], y=dfna["Name"]))
+            amc=px.histogram(data_frame=dfna, x='Amount', y='Name',text_auto=True)
+            amc.update_layout(title="Revenue of Customers",xaxis_title="",yaxis_title="Name of Customer")
+            amc
+        with ca21:
+            tdc
+    containerca1 = st.container()
+    ca3,ca4,ca41 = st.columns(3)
+
+    with containerca1:
+        with ca3:
+            tc
+        with ca41:
+            Day
+    containerca2 = st.container()
+    ca5,ca6,ca61 = st.columns(3)
+
+    with containerca2:
+        with ca5:
+            s111,s222 = st.columns(2)
+            slides = s111.slider('Top n Locations', 0, 90, 5)
+            addy = df.groupby(['Address']).size().to_frame().sort_values([0], ascending = False).head(slides).reset_index()
+            addy.columns = ['Adress', 'count']
+            addresss = px.bar(addy, y='Adress', x = 'count',text_auto=True)
+            addresss.update_layout(title="Demand per Area",xaxis_title="",yaxis_title="Location")
+            addresss
+        with ca61:
+            dincome
  elif App == 'None':
      st.write(str(''))
 
