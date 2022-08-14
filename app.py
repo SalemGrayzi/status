@@ -330,8 +330,7 @@ def page2():
 
     with containerera1:
         with era3:
-            s1,s2 = st.columns(2)
-            split_size = s1.slider('Top n Drivers', 0, 90, 5)
+            split_size = st.slider('Top n Drivers', 0, 90, 5)
             dfd = df.groupby(['Driver Name']).size().to_frame().sort_values([0], ascending = False).head(split_size).reset_index()
             dfd.columns = ['Driver Name', 'count']
             drv = px.bar(dfd, y='Driver Name', x = 'count',text_auto=True)
