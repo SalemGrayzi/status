@@ -554,7 +554,7 @@ def page5():
           st.write(f'Labor cost for {emp} pickers would be {my_value(round(lc))} LBP per hour')
           st.write(f'Call cost for {orde} customers waiting would be {my_value(round(wcrr))} LBP per hour')
           st.write(f'Total cost would be {my_value(round(total))} LBP per hour')
-          st.form_submit_button('Press to calculate') #button to be pressed to initiate calculating
+     st.form_submit_button('Press to calculate') #button to be pressed to initiate calculating
 
 # End of tab 5
 
