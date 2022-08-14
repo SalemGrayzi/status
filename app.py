@@ -148,7 +148,7 @@ tdc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Hours and
 ###################################### Average revenue per day
 st.cache()
 dincome = px.histogram(df, x="Day Name",y='Amount', histfunc='avg',text_auto=True,category_orders={'Day Name':["Monday","Tuesday","Wednesday", "Thursday", "Friday", "Saturday","Sunday"]})
-dincome.update_layout(title="Average Revenue Per Day",xaxis_title="Amount",yaxis_title="Day Name")
+dincome.update_layout(title="Average Revenue Per Day",xaxis_title="Day Name",yaxis_title="Amount")
 
 
 ###################################### tab 1
