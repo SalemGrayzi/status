@@ -377,7 +377,7 @@ def page3():
             onmount
         with aca3:
             onmount2
-      sto
+     sto
  elif App == 'None':
      st.write(str(''))
 
