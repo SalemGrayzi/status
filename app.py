@@ -193,7 +193,7 @@ def main_page():
 
  ### Word documents from google drive where it has the full report once clicked it downloads
  st.write('For the full analysis press the following link to be redirected to the report')
- link1 = '[Full Report]https://drive.google.com/uc?export=download&id=16OLgv9XU_rmuHPZ4wCwveAWeGsR4GlHs'
+ link1 = '[Full Report]https://drive.google.com/uc?export=download&id=1DIpi1zVrAKAaCe8EFs0ePeVgfx6hwj8N'
  st.markdown(link1, unsafe_allow_html=True)
  st.write('For the powerpoint press the following link')
  link1 = '[Powerpoint]https://drive.google.com/uc?export=download&id=1MrmHWmS_klWlUdxgblnQHxWrkqb-Qjsj'
