@@ -377,7 +377,11 @@ def page3():
             onmount
         with aca3:
             onmount2
-     sto
+    containeraca1 = st.container()
+    aca4,aca5,aca51 = st.columns(3)
+    with containeraca1:
+        with aca4:
+            sto
  elif App == 'None':
      st.write(str(''))
 
