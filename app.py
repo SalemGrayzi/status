@@ -524,7 +524,7 @@ def page5():
      if (result < 0 or result > 1) : #if Utilization is less than 0 and greater than 1 returns an error
         st.error('Inavlid Model')
      else:
-        st.write(f'Utilization of pickers {round(result*100,2)}%') # Rounding Utilization and turning it into percent
+        #st.write(f'Utilization of pickers {round(result*100,2)}%') # Rounding Utilization and turning it into percent
         sc=(result**np.sqrt(2*(emp+1)))/orde # formula to calculate the first part of the equation using the numbers that have been input
         try:
             uf=1/(1-(orde/(emp*cap)))
