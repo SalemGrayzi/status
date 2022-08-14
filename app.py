@@ -317,18 +317,36 @@ def page2():
         st.write('This graph is very important as it shows us how does PDA affect the order status. As we can see orders that were canceled with the usage of PDA has a much lower ratio compared to not using PDAs. Even though delivered orders are similar to each other but with cancelation there is a big difference between them.')
 
  elif PDA1 == 'All':
-        st.pyplot(pdapicker)
-        driver
-        s1,s2 = st.columns(2)
-        split_size = s1.slider('Top n Drivers', 0, 90, 5)
-        dfd = df.groupby(['Driver Name']).size().to_frame().sort_values([0], ascending = False).head(split_size).reset_index()
-        dfd.columns = ['Driver Name', 'count']
-        drv = px.bar(dfd, y='Driver Name', x = 'count',text_auto=True)
-        drv.update_layout(title="Number of Orders per Driver",xaxis_title="",yaxis_title="Driver")
-        drv
-        pda
-        stpk
-        st.pyplot(gh)
+    containerera = st.container()
+    era1,era2 = st.columns(2)
+
+    with containerera:
+        with era1:
+            st.pyplot(pdapicker)
+        with era2:
+            driver
+    containerera1 = st.container()
+    era3,era4 = st.columns(2)
+
+    with containerera1:
+        with era3:
+            s1,s2 = st.columns(2)
+            split_size = s1.slider('Top n Drivers', 0, 90, 5)
+            dfd = df.groupby(['Driver Name']).size().to_frame().sort_values([0], ascending = False).head(split_size).reset_index()
+            dfd.columns = ['Driver Name', 'count']
+            drv = px.bar(dfd, y='Driver Name', x = 'count',text_auto=True)
+            drv.update_layout(title="Number of Orders per Driver",xaxis_title="",yaxis_title="Driver")
+            drv
+        with era4:
+            pda
+    containerera2 = st.container()
+    era5,era6 = st.columns(2)
+
+    with containerera2:
+        with era5:
+            stpk
+        with era6:
+            st.pyplot(gh)
  elif PDA1 == 'None':
         st.write(str(''))
 
