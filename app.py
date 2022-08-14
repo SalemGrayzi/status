@@ -548,6 +548,12 @@ def page5():
         qm1.metric("Picker Utilization", value=round(result*100,2))
         qm2.metric("Avg. Wait Time", value=round(wait, 2))
         qm3.metric("Total Cost", value=round(totalusd,2))
+        if(st.button("Click for more...")):
+          st.write(f'Utilization of pickers {round(result*100,2)}%')
+          st.write(f'On average minutes {round(wait, 2)} before order deployment')
+          st.write(f'Labor cost for {emp} pickers would be {my_value(round(lc))} LBP per hour')
+          st.write(f'Call cost for {orde} customers waiting would be {my_value(round(wcrr))} LBP per hour')
+          st.write(f'Total cost would be {my_value(round(total))} LBP per hour')
      st.form_submit_button('Press to calculate') #button to be pressed to initiate calculating
 
 # End of tab 5
