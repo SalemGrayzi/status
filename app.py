@@ -545,7 +545,7 @@ def page5():
         totalusd=total/rate
         st.write(f'Total cost in U.S.D would be ${round(totalusd,2)} per hour')
         qm1, qm2, qm3 = st.columns(3)
-        qm1.metric("Picker Utilization", value=st.write(f'round{(result*100,2)}%'), "1.2 °F")
+        qm1.metric("Picker Utilization", value=print(f'round{(result*100,2)}%'), "1.2 °F")
         qm2.metric("Avg. Wait Time", value=round(wait, 2), "-8%")
         qm3.metric("Total Cost", value=my_value(round(total)), "4%")
      st.form_submit_button('Press to calculate') #button to be pressed to initiate calculating
