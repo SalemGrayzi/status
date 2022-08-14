@@ -326,17 +326,17 @@ def page2():
         with era2:
             driver
     containerera1 = st.container()
-    era3,era4 = st.columns(2)
+#    era3,era4 = st.columns(2)
 
     with containerera1:
-        with era3:
+ #       with era3:
             split_size = st.slider('Top n Drivers', 0, 90, 5)
             dfd = df.groupby(['Driver Name']).size().to_frame().sort_values([0], ascending = False).head(split_size).reset_index()
             dfd.columns = ['Driver Name', 'count']
             drv = px.bar(dfd, y='Driver Name', x = 'count',text_auto=True)
             drv.update_layout(title="Number of Orders per Driver",xaxis_title="",yaxis_title="Driver")
             drv
-        with era4:
+  #      with era4:
             pda
     containerera2 = st.container()
     era5,era6 = st.columns(2)
