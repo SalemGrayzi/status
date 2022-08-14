@@ -467,8 +467,7 @@ def page4():
 
     with containerca2:
         with ca5:
-            s111,s222 = st.columns(2)
-            slides = s111.slider('Top n Locations', 0, 90, 5)
+            slides = st.slider('Top n Locations', 0, 90, 5)
             addy = df.groupby(['Address']).size().to_frame().sort_values([0], ascending = False).head(slides).reset_index()
             addy.columns = ['Adress', 'count']
             addresss = px.bar(addy, y='Adress', x = 'count',text_auto=True)
