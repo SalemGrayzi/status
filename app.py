@@ -288,7 +288,7 @@ def main_page():
         with g15:
             dincome
         with g16:
-            
+            st.write('')
 # End of tab 1
 
 #########################################################
