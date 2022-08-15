@@ -123,9 +123,9 @@ sto.update_layout(title="Status of Order per Ordering Method",xaxis_title="",yax
 ###################################### Time of incoming orders in a day
 st.cache()
 df4= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Incoming%20Order%20Times.csv')
-tc1=px.line(df4, x='Hour of Time Created',y='Count of Sheet1')
-tc1.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Minutes",yaxis_title="")
-tc1
+tc=px.line(df4, x='Hour of Time Created',y='Count of Sheet1')
+tc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Minutes",yaxis_title="")
+tc
 #df['Time Created'] = pd.to_datetime(df['Time Created'], format='%I:%M:%S %p')
 #tc=px.histogram(x=df['Time Created'])
 #tc.update_layout(title="Time Created of Orders",xaxis_title="Time in 24 Hour Format",yaxis_title="")
