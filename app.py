@@ -414,8 +414,9 @@ def page4():
  #df3= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/time.csv')
 #tdc=px.line(df3, x='Time to Deploy in Min',y='Count')
 #tdc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Minutes",yaxis_title="")
- ttdm=df3['Count'].value_counts().nlargest(3).index.max()
- ttdi=df3['Count'].value_counts().nlargest(3).index.min()
+ df3['counts']=df3.groupby('Time to Deploy in Min')['Count']
+ ttdm=df3['counts'].value_counts().nlargest(3).index.max()
+ ttdi=df3['counts'].value_counts().nlargest(3).index.min()
 
  def my_value(number):
      return ("{:,}".format(number)) # a function to format numbers to have commas in them
