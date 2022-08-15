@@ -122,7 +122,7 @@ sto.update_layout(title="Status of Order per Ordering Method",xaxis_title="",yax
 
 ###################################### Time of incoming orders in a day
 st.cache()
-df4= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/time.csv')
+df4= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Incoming%20Order%20Times.csv')
 tc=px.line(df4, x='Hour of Time Created',y='Count')
 tc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Minutes",yaxis_title="")
 tc
@@ -141,7 +141,7 @@ tc
 
 ###################################### Time it takes for an order to deploy
 st.cache()
-df3= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Incoming%20Order%20Times.csv')
+df3= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/time.csv')
 tdc=px.line(df3, x='Time to Deploy in Min',y='Count')
 tdc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Minutes",yaxis_title="")
 #tdc=px.line(df, y=df['Time to deploy'].value_counts(),x=df['Time to deploy'].value_counts().index)
