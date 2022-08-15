@@ -137,8 +137,7 @@ tc.update_layout(title="Time Created of Orders",xaxis_title="Time in 24 Hour For
 
 ###################################### Time it takes for an order to deploy
 st.cache()
-df3= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/time%20to%20deploy%20an%20order_Full%20Data.csv')
-tdc=px.line(df, y=df3['Time to Deploy in Min'].value_counts(),x=df3['Time to Deploy in Min'].value_counts().index)
+tdc=px.line(df, y=df['Time to deploy'].value_counts(),x=df['Time to deploy'].value_counts().index)
 tdc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Hours and Minutes",yaxis_title="")
 
 
