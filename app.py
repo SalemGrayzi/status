@@ -141,7 +141,7 @@ tc
 
 ###################################### Time it takes for an order to deploy
 st.cache()
-df3= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/time.csv')
+df3= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Incoming%20Order%20Times.csv')
 tdc=px.line(df3, x='Time to Deploy in Min',y='Count')
 tdc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Minutes",yaxis_title="")
 #tdc=px.line(df, y=df['Time to deploy'].value_counts(),x=df['Time to deploy'].value_counts().index)
