@@ -138,11 +138,11 @@ tc.update_layout(title="Time Created of Orders",xaxis_title="Time in 24 Hour For
 ###################################### Time it takes for an order to deploy
 st.cache()
 df3= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/time.csv')
-tdc1=px.line(df3, x='Time to Deploy in Min',y='Count')
-tdc1.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Hours and Minutes",yaxis_title="")
-tdc1
-tdc=px.line(df, y=df['Time to deploy'].value_counts(),x=df['Time to deploy'].value_counts().index)
-tdc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Hours and Minutes",yaxis_title="")
+tdc=px.line(df3, x='Time to Deploy in Min',y='Count')
+tdc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Minutes",yaxis_title="")
+tdc
+#tdc=px.line(df, y=df['Time to deploy'].value_counts(),x=df['Time to deploy'].value_counts().index)
+#tdc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Hours and Minutes",yaxis_title="")
 
 
 #################################################################### This graph was sent into its area due to filtering reasoning
