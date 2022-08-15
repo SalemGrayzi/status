@@ -18,7 +18,7 @@ st.set_page_config(layout="wide")
 #    st.image("https://play-lh.googleusercontent.com/qPmIH0OemtPoTXyEztnpZVW-35sEWvrw99DIX6n1sklf1mDekUxtMzyInpJlTOATsp5B",width=100)
 
 
-df= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/time%20to%20deploy%20an%20order_Full%20Data.csv')
+df= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Data.csv')
 
 ### Filling missing values in Adress column with the mode
 df['Address'] =  df['Address'].fillna('بشامون')
@@ -137,7 +137,8 @@ tc.update_layout(title="Time Created of Orders",xaxis_title="Time in 24 Hour For
 
 ###################################### Time it takes for an order to deploy
 st.cache()
-tdc=px.line(df, y=df['Time to deploy'].value_counts(),x=df['Time to deploy'].value_counts().index)
+df3= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/time%20to%20deploy%20an%20order_Full%20Data.csv')
+tdc=px.line(df, y=df3['Time to deploy'].value_counts(),x=df3['Time to deploy'].value_counts().index)
 tdc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Hours and Minutes",yaxis_title="")
 
 
