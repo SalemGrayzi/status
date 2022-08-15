@@ -18,7 +18,7 @@ st.set_page_config(layout="wide")
 #    st.image("https://play-lh.googleusercontent.com/qPmIH0OemtPoTXyEztnpZVW-35sEWvrw99DIX6n1sklf1mDekUxtMzyInpJlTOATsp5B",width=100)
 
 
-df= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Data.csv')
+df= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/time%20to%20deploy%20an%20order_Full%20Data.csv')
 
 ### Filling missing values in Adress column with the mode
 df['Address'] =  df['Address'].fillna('بشامون')
