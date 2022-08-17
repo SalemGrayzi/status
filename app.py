@@ -442,7 +442,7 @@ def page4():
      st.write(f'This visual is important for Diwan to find its highest revenue generated customers, as this assists Diwan in implementing a loyalty program for their customers. Using the filter we are able to find the top {n_size} of customers and their respectable revenues.')
  elif App == 'Wait Time to Deploy':
      tdc
-     st.write(f'On average there is an 80-minute wait to deploy an order. This shows us the distribution of wait times before an order is deployed as this is important to achieve a better service level and compete with other competitors.')
+     st.write(f'On average there is an 60-minute wait to deploy an order. This shows us the distribution of wait times before an order is deployed as this is important to achieve a better service level and compete with other competitors.')
  elif App == 'Time of Incoming Orders':
      tc
      st.write('Understanding when orders are coming in is important to allocate the right human resource, as we can see between 10 am and 2 pm we can see most orders are coming in then declining at a steady rate.')
