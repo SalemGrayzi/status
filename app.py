@@ -528,8 +528,8 @@ def page5():
 
  with st.form(key='form1'):
      col11, col22, col33, col44, col55, col66 = st.columns(6) # creating 6 columns to put all the input boxes next to each other
-     emp = col11.number_input('Number of Pickers', value=11,min_value=1, step=1)
-     orde= col22.number_input('Orders per Hour',value=10)
+     emp = col11.number_input('Number of Pickers', value=12,min_value=1, step=1)
+     orde= col22.number_input('Orders per Hour',value=11)
      cap = col33.number_input("Picker's Capacity per Hour",value=1)
      costp = col44.number_input("Picker's Salary per Hour",value=16203.70)
      costc = col55.number_input('Cost of Call per Minute',value=0.004,format="%.5f")
