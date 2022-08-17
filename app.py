@@ -561,7 +561,7 @@ def page5():
         qm1, qm2, qm3 = st.columns(3)
         qm1.metric("Pickers Utilization", value=round(result*100,2))
         qm2.metric("Avg. Wait Time", value=round(wait, 2))
-        qm3.metric("Total Cost in USD", value=round(totalusd,3))
+        qm3.metric("Total Cost in USD", value=round(totalusd,2))
      st.form_submit_button('Press to calculate') #button to be pressed to initiate calculating
     # Writing the results from the calculations
  if(st.button("Click for more...")):
