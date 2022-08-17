@@ -12,6 +12,9 @@ import markdown
 from streamlit_metrics import metric, metric_row
 import time
 st.set_page_config(layout="wide")
+
+avgs=df['Time to deploy'].mean()
+avgs
 #pi1, pi2 = st.columns(2) ### Adding columns to insert the picture in the middle of the screen in column 2
 
 #with pi2:
