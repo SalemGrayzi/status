@@ -13,8 +13,7 @@ from streamlit_metrics import metric, metric_row
 import time
 st.set_page_config(layout="wide")
 
-avgs=df['Time to deploy'].mean()
-avgs
+
 #pi1, pi2 = st.columns(2) ### Adding columns to insert the picture in the middle of the screen in column 2
 
 #with pi2:
@@ -22,7 +21,8 @@ avgs
 
 
 df= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Data.csv')
-
+avgs=df['Time to deploy'].mean()
+avgs
 ### Filling missing values in Adress column with the mode
 df['Address'] =  df['Address'].fillna('بشامون')
 
