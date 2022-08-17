@@ -1,0 +1,27 @@
+Low Demand,,,,,,
+Utilization ,Number of Employees,Minutes,Labor cost ,Waiting cost,Total cost,USD
+92%,12,42,"LBP 194,444","LBP 53,123","LBP 247,567.81",$8.39
+85%,13,14,"LBP 210,648","LBP 17,499","LBP 228,147.33",$7.73
+79%,14,6,"LBP 226,852","LBP 7,406","LBP 234,257.47",$7.94
+73%,15,3,"LBP 243,056","LBP 3,390","LBP 246,445.90",$8.35
+69%,16,1,"LBP 259,259","LBP 1,589","LBP 260,848.67",$8.84
+,,,,,,
+,,,,,,
+Medium Demand,,,,,,
+Utilization ,Number of Employees,Minutes,Labor cost ,Waiting cost,Total cost,USD
+92%,13,42,"LBP 210,648","LBP 59,845","LBP 270,493",$9.17
+86%,14,14,"LBP 226,852","LBP 20,463","LBP 247,315",$8.38
+80%,15,6,"LBP 243,056","LBP 9,039","LBP 252,095",$8.55
+75%,16,3,"LBP 259,259","LBP 4,345","LBP 263,604",$8.94
+71%,17,2,"LBP 275,463","LBP 2,152","LBP 277,615",$9.41
+,,,,,,
+,,,,,,
+,,,,,,
+High Demand,,,,,,
+Utilization ,Number of Employees,Minutes,Labor cost ,Waiting cost,Total cost,USD
+94%,16,44,"LBP 259,259","LBP 77,534","LBP 336,793",$11.42
+88%,17,16,"LBP 275,463","LBP 27,626","LBP 303,089",$10.27
+83%,18,7,"LBP 291,667","LBP 12,791","LBP 304,458",$10.32
+79%,19,4,"LBP 307,870","LBP 6,484","LBP 314,354",$10.66
+0.75,20,2,"LBP 324,074","LBP 3,408","LBP 327,482",$11.10
+,,,,,,
