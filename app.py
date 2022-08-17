@@ -21,7 +21,7 @@ st.set_page_config(layout="wide")
 
 
 df= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Data.csv')
-avgs=df['Time to deploy'].mean()
+avgs=df['Time to deploy'].avg()
 avgs
 ### Filling missing values in Adress column with the mode
 df['Address'] =  df['Address'].fillna('بشامون')
