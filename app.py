@@ -38,7 +38,8 @@ df['OnlineApp'] = df['OnlineApp'].map(
 df['Time Created'] = pd.to_datetime(df['Time Created'], format='%I:%M:%S %p')
 
 ### In the bellow section it conatains all the graphs made
-
+avgs = df['Time Created'].mean()
+avgs
 ###################################### Graph to get orders per day in a year
 st.cache()
 ### Graphing the day names with a certain order and text shown on graph
