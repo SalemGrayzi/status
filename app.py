@@ -135,6 +135,12 @@ st.cache()
 df3= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/time.csv')
 tdc=px.line(df3, x='Time to Deploy in Min',y='Count')
 tdc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Minutes",yaxis_title="")
+
+dfds1 = df.groupby(['Time to Deploy in Min']).size().to_frame().reset_index() ### Grouping them then using the filter to specify how many it should show
+dfds1.columns = ['Time to Deploy in Min', 'count'] ### adding the columns to the values returned previously 
+tdc1 = px.line(dfds1, x='Time Created', y= 'count') ### plotting the graph 
+tdc1.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Minutes",yaxis_title="")
+
 #tdc=px.line(df, y=df['Time to deploy'].value_counts(),x=df['Time to deploy'].value_counts().index)
 #tdc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Hours and Minutes",yaxis_title="")
 
