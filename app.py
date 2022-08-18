@@ -130,7 +130,7 @@ tc.update_layout(title="Time of Order",xaxis_title="Time in Minutes",yaxis_title
 
 #dfd = df.groupby(['Driver Name']).size().to_frame().sort_values([0], ascending = False).head(split_size).reset_index() ### Grouping them then using the filter to specify how many it should show
 
-df['Time Created'] = pd.to_datetime(df['Time Created'], format='%I:%M:%S %p')
+df['Time Created'] = pd.to_datetime(df['Time Created'], format='%H:%M:%S %p')
 dfds = df.groupby(['Time Created']).size().to_frame().reset_index() ### Grouping them then using the filter to specify how many it should show
 dfds.columns = ['Time Created', 'count'] ### adding the columns to the values returned previously 
 tc11 = px.line(dfds, x='Time Created', y= 'count') ### plotting the graph 
