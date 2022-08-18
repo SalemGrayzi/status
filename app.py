@@ -124,29 +124,11 @@ sto.update_layout(title="Status of Order per Ordering Method",xaxis_title="",yax
 
 ###################################### Time of incoming orders in a day
 st.cache()
-df4= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Incoming%20Order%20Times.csv')
-tc=px.line(df4, x='Hour of Time Created',y='Count')
-tc.update_layout(title="Time of Order",xaxis_title="Time in Minutes",yaxis_title="")
-
-#dfd = df.groupby(['Driver Name']).size().to_frame().sort_values([0], ascending = False).head(split_size).reset_index() ### Grouping them then using the filter to specify how many it should show
-
 df['Time Created'] = pd.to_datetime(df['Time Created'], format='%I:%M:%S %p')
 dfds = df.groupby(['Time Created']).size().to_frame().reset_index() ### Grouping them then using the filter to specify how many it should show
 dfds.columns = ['Time Created', 'count'] ### adding the columns to the values returned previously 
-tc11 = px.line(dfds, x='Time Created', y= 'count') ### plotting the graph 
-tc11
-#df['Time Created'] = pd.to_datetime(df['Time Created'], format='%I:%M:%S %p')
-#tc=px.histogram(x=df['Time Created'])
-#tc.update_layout(title="Time Created of Orders",xaxis_title="Time in 24 Hour Format",yaxis_title="")
-
-
-#,category_orders={'':["7:00:00 AM","8:00:00 AM","9:00:00 AM", "10:00:00 AM", "11:00:00 AM", "12:00:00 PM","1:00:00 PM","2:00:00 PM","3:00:00 PM","4:00:00 PM","5:00:00 PM","6:00:00 PM","7:00:00 PM","8:00:00 PM","9:00:00 PM","10:00:00 PM","11:00:00 PM","12:00:00 PM","1:00:00 AM","2:00:00 AM","3:00:00 AM","4:00:00 AM","5:00:00 AM","6:00:00 AM"]})
-
-#tc=px.line(df, y=df['Time Created'].value_counts(),x=df['Time Created'].value_counts().index,
-#    category_orders={'Time Created':["7:00:00 AM","8:00:00 AM","9:00:00 AM", "10:00:00 AM", "11:00:00 AM", "12:00:00 PM",
-#    "1:00:00 PM","2:00:00 PM","3:00:00 PM","4:00:00 PM","5:00:00 PM","6:00:00 PM","7:00:00 PM","8:00:00 PM","9:00:00 PM",
-#    "10:00:00 PM","11:00:00 PM","12:00:00 PM","1:00:00 AM","2:00:00 AM","3:00:00 AM","4:00:00 AM","5:00:00 AM","6:00:00 AM"]})
-#tc.update_layout(title="Time of Incoming Orders",xaxis_title="Time of Order",yaxis_title="")
+tc = px.line(dfds, x='Time Created', y= 'count') ### plotting the graph 
+tc.update_layout(title="Time Created of Orders",xaxis_title="Time in 24 Hour Format",yaxis_title="")
 
 ###################################### Time it takes for an order to deploy
 st.cache()
