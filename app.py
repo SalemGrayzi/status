@@ -128,6 +128,10 @@ df4= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Inco
 tc=px.line(df4, x='Hour of Time Created',y='Count')
 tc.update_layout(title="Time of Order",xaxis_title="Time in Minutes",yaxis_title="")
 
+dfds = df.groupby(['Time Created']).size().to_frame().sort_values([0], ascending = False).reset_index() ### Grouping them then using the filter to specify how many it should show
+dfds.columns = ['Time Created', 'count'] ### adding the columns to the values returned previously 
+tc11 = px.bar(dfd, x='Time Created', y= 'count') ### plotting the graph 
+tc11
 #df['Time Created'] = pd.to_datetime(df['Time Created'], format='%I:%M:%S %p')
 #tc=px.histogram(x=df['Time Created'])
 #tc.update_layout(title="Time Created of Orders",xaxis_title="Time in 24 Hour Format",yaxis_title="")
