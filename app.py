@@ -38,10 +38,6 @@ df['OnlineApp'] = df['OnlineApp'].map(
 df['Time Created'] = pd.to_datetime(df['Time Created'], format='%I:%M:%S %p')
 
 ### In the bellow section it contains all the graphs made
-from datetime import timedelta
-
-times = df['Time Created']
-print(str(timedelta(seconds=sum(map(lambda f: int(f[0])*3600 + int(f[1])*60 + int(f[2]), map(lambda f: f.split(':'), times)))/len(times))))
 
 ###################################### Graph to get orders per day in a year
 st.cache()
