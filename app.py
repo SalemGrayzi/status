@@ -34,6 +34,9 @@ df['Handheld Used'] = df['Handheld Used'].map(
 df['OnlineApp'] = df['OnlineApp'].map(
                    {True:'Application' ,False:'Phone Call'})
 
+### changing time created into datetime with the specified format
+df['Time Created'] = pd.to_datetime(df['Time Created'], format='%I:%M:%S %p')
+
 ### In the bellow section it conatains all the graphs made
 
 ###################################### Graph to get orders per day in a year
@@ -124,26 +127,17 @@ sto.update_layout(title="Status of Order per Ordering Method",xaxis_title="",yax
 
 ###################################### Time of incoming orders in a day
 st.cache()
-df['Time Created'] = pd.to_datetime(df['Time Created'], format='%I:%M:%S %p')
-dfds = df.groupby(['Time Created']).size().to_frame().reset_index() ### Grouping them then using the filter to specify how many it should show
+dfds = df.groupby(['Time Created']).size().to_frame().reset_index() ### Grouping them to get count and its variables
 dfds.columns = ['Time Created', 'count'] ### adding the columns to the values returned previously 
 tc = px.line(dfds, x='Time Created', y= 'count') ### plotting the graph 
-tc.update_layout(title="Time Created of Orders",xaxis_title="Time in 24 Hour Format",yaxis_title="")
+tc.update_layout(title="Time Created of Orders",xaxis_title="Time in 24 Hour Format",yaxis_title="") ### adding more details onto the graph
 
 ###################################### Time it takes for an order to deploy
 st.cache()
-#df3= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/time.csv')
-#tdc=px.line(df3, x='Time to Deploy in Min',y='Count')
-#tdc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Minutes",yaxis_title="")
-
-#df['Time to Deploy in Min'] = pd.to_datetime(df['Time to Deploy in Min'], format='%I:%M')
-dfds1 = df.groupby(['Time to deploy']).size().to_frame().reset_index() ### Grouping them then using the filter to specify how many it should show
+dfds1 = df.groupby(['Time to deploy']).size().to_frame().reset_index() ### Grouping them to get count and its variables
 dfds1.columns = ['Time to deploy', 'count'] ### adding the columns to the values returned previously 
 tdc = px.line(dfds1, x='Time to deploy', y= 'count') ### plotting the graph 
-tdc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Minutes",yaxis_title="")
-tdc
-#tdc=px.line(df, y=df['Time to deploy'].value_counts(),x=df['Time to deploy'].value_counts().index)
-#tdc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Hours and Minutes",yaxis_title="")
+tdc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Minutes",yaxis_title="") ### adding more details onto the graph
 
 #################################################################### This graph was sent into its area due to filtering reasoning
 ### slider for filtering in graph
