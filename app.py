@@ -137,7 +137,7 @@ tdc=px.line(df3, x='Time to Deploy in Min',y='Count')
 tdc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Minutes",yaxis_title="")
 
 #df['Time to Deploy in Min'] = pd.to_datetime(df['Time to Deploy in Min'], format='%I:%M')
-dfds1 = df.groupby(['Time to deploy']).size().to_frame().sort_values([0], ascending = False).reset_index() ### Grouping them then using the filter to specify how many it should show
+dfds1 = df.groupby(['Time to deploy']).size().to_frame().reset_index() ### Grouping them then using the filter to specify how many it should show
 dfds1.columns = ['Time to deploy', 'count'] ### adding the columns to the values returned previously 
 tdc1 = px.line(dfds1, x='Time to deploy', y= 'count') ### plotting the graph 
 tdc1.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Minutes",yaxis_title="")
