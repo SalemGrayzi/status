@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import markdown
 from streamlit_metrics import metric, metric_row
 import time
-
+ from millify import millify
 ### Setting page to wide automatically to avoid it being centered
 
 st.set_page_config(layout="wide")
@@ -61,7 +61,7 @@ vt=df['Handheld Used'].value_counts() ### Counting each distinct variable
 vts=df['Handheld Used'].value_counts().index ### Finding the index position of an the variable
 pda=go.Figure(data=[go.Pie(labels=vts, values=vt, pull=[0.2, 0])]) ### Plotting it in a pie chart and adding the seperate factor using pull
 pda.update_traces(textposition='inside', textinfo='percent+label') ### Adding text and percentage inside the graph
-pda.update_layout(title="Percent of PDA Usage") ### Cahnging title 
+pda.update_layout(title="Percent of PDA Usage") ### Changing title 
 ### For dynamic text purposes 
 hp,hp1 = (df['Handheld Used'].value_counts() /
                       df['Handheld Used'].value_counts().sum()) * 100
@@ -95,34 +95,32 @@ stpk.update_layout(title="Picker's Percentage of Order Status",xaxis_title="Perc
 
 ###################################### Percentage of revenue based on order methods
 st.cache()
-#am=df['Amount'].value_counts()
-#op=df['OnlineApp'].value_counts()
-#ops=df['OnlineApp'].value_counts().index
-onmount=go.Figure(data=[go.Pie(labels=df['OnlineApp'], values=df.loc[df['Status'] == 'Delivered'].Amount, pull=[0.2, 0])])
-onmount.update_traces(textposition='inside', textinfo='percent+label')
-onmount.update_layout(title="Revenue of Ordering Method")
-
-
+### Graphing orders methods based on order being delivered
+onmount=go.Figure(data=[go.Pie(labels=df['OnlineApp'], values=df.loc[df['Status'] == 'Delivered'].Amount, pull=[0.2, 0])]) ### Plotting it in a pie chart and adding the seperate factor using pull
+onmount.update_traces(textposition='inside', textinfo='percent+label') ### Adding text and percentage inside the graph
+onmount.update_layout(title="Revenue of Ordering Method") ### Changing title 
 
 ###################################### Percentage of lost sales based on order methods
 st.cache()
-onmount2=go.Figure(data=[go.Pie(labels=df['OnlineApp'], values=df.loc[df['Status'] == 'Canceled'].Amount, pull=[0.2, 0])])
-onmount2.update_traces(textposition='inside', textinfo='percent+label')
-onmount2.update_layout(title="Lost Sales of Ordering Method")
+### Graphing orders methods based on order being canceled
+onmount2=go.Figure(data=[go.Pie(labels=df['OnlineApp'], values=df.loc[df['Status'] == 'Canceled'].Amount, pull=[0.2, 0])]) ### Plotting it in a pie chart and adding the seperate factor using pull
+onmount2.update_traces(textposition='inside', textinfo='percent+label') ### Adding text and percentage inside the graph
+onmount2.update_layout(title="Lost Sales of Ordering Method") ### Changing title 
+### For dynamic text purposes
 os,os1 = (df.groupby('OnlineApp')['Status'].count() /
                       df['OnlineApp'].value_counts().sum()) * 100
 
-
 #################################################################### This graph was sent into its area due to filtering reasoning
+### slider for filtering in graph 
 #n_size = st.sidebar.slider('Top n Customers', 0, 90, 5)
-#dfna = df.groupby("Name", as_index=False).sum().sort_values("Amount", ascending=False).head(n_size)
-#amc=go.Figure(go.Bar(x=dfna["Amount"], y=dfna["Name"]))
+#dfna = df.groupby("Name", as_index=False).sum().sort_values("Amount", ascending=False).head(n_size) ### from slider number its shows the desired ones by grouping 
+#amc=go.Figure(go.Bar(x=dfna["Amount"], y=dfna["Name"])) ### graphing them
 #amc=px.histogram(data_frame=dfna, x='Amount', y='Name')
 
 ###################################### ORder status based on order methods
 st.cache()
-sto=px.histogram(df, y="Status", color="OnlineApp",text_auto=True)
-sto.update_layout(title="Status of Order per Ordering Method",xaxis_title="",yaxis_title="Status of Order")
+sto=px.histogram(df, y="Status", color="OnlineApp",text_auto=True) ### Plotting with values shown on the graph
+sto.update_layout(title="Status of Order per Ordering Method",xaxis_title="",yaxis_title="Status of Order") ### adding more details onto the graph
 
 ###################################### Time of incoming orders in a day
 st.cache()
@@ -151,24 +149,24 @@ tdc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Minutes",
 #tdc=px.line(df, y=df['Time to deploy'].value_counts(),x=df['Time to deploy'].value_counts().index)
 #tdc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Hours and Minutes",yaxis_title="")
 
-
 #################################################################### This graph was sent into its area due to filtering reasoning
+### slider for filtering in graph
 #slides = st.sidebar.slider('Top n Locations', 0, 90, 5)
-#addy = df.groupby(['Address']).size().to_frame().sort_values([0], ascending = False).head(slides).reset_index()
-#addy.columns = ['Adress', 'count']
-#addresss = px.bar(addy, y='Adress', x = 'count')
+#addy = df.groupby(['Address']).size().to_frame().sort_values([0], ascending = False).head(slides).reset_index() ### from slider number its shows the desired ones by grouping 
+#addy.columns = ['Adress', 'count'] ### turning them into columns
+#addresss = px.bar(addy, y='Adress', x = 'count') ### plotting the variables
 
 ###################################### Average revenue per day
 st.cache()
+### Graphing the day names with a certain order and text shown on graph
 dincome = px.histogram(df, x="Day Name",y='Amount', histfunc='avg',text_auto=True,category_orders={'Day Name':["Monday","Tuesday","Wednesday", "Thursday", "Friday", "Saturday","Sunday"]})
-dincome.update_layout(title="Average Revenue Per Day",xaxis_title="Day Name",yaxis_title="Amount")
-
+dincome.update_layout(title="Average Revenue Per Day",xaxis_title="Day Name",yaxis_title="Amount") ### adding more details on the graph
 
 ###################################### tab 1
 st.cache()
 def main_page():
  st.cache()
- st.title('Diwan Delivery Analysis')
+ st.title('Diwan Delivery Analysis') ### Adding page title
 
  ### Adding comments onto the home tab for understanding the dashboard
  st.header('What is the objective of this Dashboard?')
@@ -206,21 +204,22 @@ def main_page():
  st.write('For the full analysis press the following link to be redirected to the report')
  link1 = '[Full Report]https://drive.google.com/uc?export=download&id=1DIpi1zVrAKAaCe8EFs0ePeVgfx6hwj8N'
  st.markdown(link1, unsafe_allow_html=True)
+ ### Powerpoint from google drive once clicked it downloads
  st.write('For the powerpoint press the following link')
  link1 = '[Powerpoint]https://drive.google.com/uc?export=download&id=1MrmHWmS_klWlUdxgblnQHxWrkqb-Qjsj'
  st.markdown(link1, unsafe_allow_html=True)
-    
+ ### making columns to put both check boxes together side by side    
  c1,c2 = st.columns(2)
-    
+     
  head = c1.checkbox('First Few Rows') # Making a checkbox for showing df.head
  if head:
      st.write(df.head())
 
  if c2.checkbox('Show all graphs'): # Adding all graph into a single button to see
     st.subheader('All Graphs')
-    container1 = st.container()
-    g1, g2,g21 = st.columns(3)
-
+    container1 = st.container() ### Adding a container and columns so grpahs are side by side through out all graphs
+    g1, g2,g21 = st.columns(3) ### using 3 columns due to having 2 the graphs over lap when 2 columns is done
+    ### Putting the graphes into the containers and their columns
     with container1:
         with g1:
             Day
@@ -228,9 +227,9 @@ def main_page():
             driver
 
 
-    container2 = st.container()
-    g3, g4, g41 = st.columns(3)
-
+    container2 = st.container() ### Adding a container and columns so grpahs are side by side through out all graphs
+    g3, g4, g41 = st.columns(3) ### using 3 columns due to having 2 the graphs over lap when 2 columns is done
+    ### Putting the graphes into the containers and their columns
     with container2:
         with g3:
             #s1,s2 = st.columns(2)
@@ -242,25 +241,25 @@ def main_page():
             drv
         with g41:
             pda
-    container3 = st.container()
-    g5,g6,g61 = st.columns(3)
-
+    container3 = st.container() ### Adding a container and columns so grpahs are side by side through out all graphs
+    g5,g6,g61 = st.columns(3) ### using 3 columns due to having 2 the graphs over lap when 2 columns is done
+    ### Putting the graphes into the containers and their columns
     with container3:
         with g5:
             st.pyplot(gh)
         with g61:
             st.pyplot(pdapicker)
-    container4 = st.container()
-    g7,g8,g81 = st.columns(3)
-
+    container4 = st.container() ### Adding a container and columns so grpahs are side by side through out all graphs
+    g7,g8,g81 = st.columns(3) ### using 3 columns due to having 2 the graphs over lap when 2 columns is done
+    ### Putting the graphes into the containers and their columns
     with container4:
         with g7:
             stpk
         with g81:
             onmount
-    container5 = st.container()
-    g9,g10,g01 = st.columns(3)
-
+    container5 = st.container() ### Adding a container and columns so grpahs are side by side through out all graphs
+    g9,g10,g01 = st.columns(3) ### using 3 columns due to having 2 the graphs over lap when 2 columns is done
+    ### Putting the graphes into the containers and their columns
     with container5:
         with g9:
             onmount2
@@ -272,46 +271,46 @@ def main_page():
             amc=px.histogram(data_frame=dfna, x='Amount', y='Name',text_auto=True)
             amc.update_layout(title="Revenue of Customers",xaxis_title="",yaxis_title="Name of Customer")
             amc
-    container6 = st.container()
-    g11,g12,g02 = st.columns(3)
-
+    container6 = st.container() ### Adding a container and columns so grpahs are side by side through out all graphs
+    g11,g12,g02 = st.columns(3) ### using 3 columns due to having 2 the graphs over lap when 2 columns is done
+    ### Putting the graphes into the containers and their columns
     with container6:
         with g11:
             sto
         with g02:
             tc
-    container7 = st.container()
-    g13,g14,g04 = st.columns(3)
-
+    container7 = st.container() ### Adding a container and columns so grpahs are side by side through out all graphs
+    g13,g14,g04 = st.columns(3) ### using 3 columns due to having 2 the graphs over lap when 2 columns is done
+    ### Putting the graphes into the containers and their columns
     with container7:
         with g13:
             tdc
         with g04:
-            #s111,s222 = st.columns(2)
             slides = st.slider('Top n Locations', 0, 90, 5)
             addy = df.groupby(['Address']).size().to_frame().sort_values([0], ascending = False).head(slides).reset_index()
             addy.columns = ['Adress', 'count']
             addresss = px.bar(addy, y='Adress', x = 'count', text_auto=True)
             addresss.update_layout(title="Demand per Area",xaxis_title="",yaxis_title="Location")
             addresss
-    container8 = st.container()
-    g15,g16 = st.columns(2)
-
+    container8 = st.container() ### Adding a container and columns so grpahs are side by side through out all graphs
+    g15,g16 = st.columns(2) ### using 2 columns just so i can move it to the left side  
+    ### Putting the graphes into the containers and their columns
     with container8:
         with g15:
             dincome
         with g16:
             st.write('')
+
 # End of tab 1
 
-#########################################################
+######################################################### Tab 2
 
 def page2():
  st.cache()
 ### A brief introduction on this section
  st.write('In this section, we are going to be talking about how the pickers are utilizing the PDA equipment as well as how it might affect an order status. Here we will find the distribution of PDA usage across the pickers to find the percentage of if they are using said equipment or not. After finding the percentage of usage of PDA we turn our heads to find the proportions of each picker if their orders were canceled or delivered as this might arise some issues that some pickers might be falling behind whether it’s their service or an issue they are facing for higher cancelation rates.')
 
-### Setting a selectbox with all graphs related to this section
+ ### Setting up the selectbox for the following graphs with each graph having a small dynamic description of graph 
  PDA1 = st.selectbox('Employee Related Analysis',
                                     ['None','Pickers','Picker and Order Status','PDA Usage','Drivers','PDA and Status of Order','All'])
 
@@ -340,17 +339,17 @@ def page2():
         st.write('This graph is very important as it shows us how does PDA affect the order status. As we can see orders that were canceled with the usage of PDA has a much lower ratio compared to not using PDAs. Even though delivered orders are similar to each other but with cancelation there is a big difference between them.')
 
  elif PDA1 == 'All':
-    containerera = st.container()
-    era1,era2,era21 = st.columns(3)
-
+    containerera = st.container() ### Adding a container and columns so grpahs are side by side through out all graphs
+    era1,era2,era21 = st.columns(3) ### using 3 columns due to having 2 the graphs over lap when 2 columns is done
+    ### Putting the graphes into the containers and their columns
     with containerera:
         with era1:
             st.pyplot(pdapicker)
         with era21:
             driver
-    containerera1 = st.container()
-    era3,era4,era41 = st.columns(3)
-
+    containerera1 = st.container() ### Adding a container and columns so grpahs are side by side through out all graphs
+    era3,era4,era41 = st.columns(3) ### using 3 columns due to having 2 the graphs over lap when 2 columns is done
+    ### Putting the graphes into the containers and their columns
     with containerera1:
         with era3:
             split_size = st.slider('Top n Drivers', 0, 90, 5)
@@ -361,9 +360,9 @@ def page2():
             drv
         with era41:
             pda
-    containerera2 = st.container()
-    era5,era6,era61 = st.columns(3)
-
+    containerera2 = st.container() ### Adding a container and columns so grpahs are side by side through out all graphs
+    era5,era6,era61 = st.columns(3) ### using 3 columns due to having 2 the graphs over lap when 2 columns is done
+    ### Putting the graphes into the containers and their columns
     with containerera2:
         with era5:
             stpk
@@ -374,13 +373,14 @@ def page2():
 
 # End of tab 2
 
-#########################################################
+######################################################### Tab 3
 
 def page3():
  st.cache()
+### Small introduction of tab
  st.write('In this section, we focus on which ordering method is bringing in the most revenue and causing lost opportunity sales. The two methods are using the phone to order, or the application. Finally, we would like to find which ordering method has a higher probability of lost sales, and which generates the most revenue.')
 
-### Setting up the selectbox for the following graphs
+### Setting up the selectbox for the following graphs with each graph having a small dynamic description of graph 
  App = st.selectbox('Application or Call Analysis',
                                      ['None', 'App vs. Call Revenues and Lost Sales','Status of Delivery Using App','All'])
 
@@ -392,16 +392,16 @@ def page3():
      sto
      st.write('The ratio between delivered and canceled between the two ordering methods is significant as we can see phone calls have a higher probability to be canceled compared to applications. This could indicate an issue in the call center resulting in more canceled orders.')
  elif App == 'All':
-    containeraca = st.container()
-    aca1,aca2,aca3 = st.columns(3)
-
+    containeraca = st.container() ### Adding a container and columns so grpahs are side by side through out all graphs
+    aca1,aca2,aca3 = st.columns(3) ### using 3 columns due to having 2 the graphs over lap when 2 columns is done
+    ### Putting the graphes into the containers and their columns
     with containeraca:
         with aca1:
             onmount
         with aca3:
             onmount2
-    containeraca1 = st.container()
-    aca4,aca5,aca51 = st.columns(3)
+    containeraca1 = st.container() ### Adding a container and columns so grpahs are side by side through out all graphs
+    aca4,aca5,aca51 = st.columns(3) ### using 3 columns due to having 2 the graphs over lap when 2 columns is done
     with containeraca1:
         with aca4:
             sto
@@ -410,26 +410,25 @@ def page3():
 
 # End of tab 3
 
-#########################################################
+######################################################### tab 4
 
 def page4():
  st.cache()
+### Small introduction of tab
  st.write('Finally, the last section covers the customers. In this section, we will be looking at overall lost sales and generated revenues, and several other pieces of information that are valuable to understanding Diwan’s customers. Here we look at revenues generated by each customer and which day generates the most. An important part is analyzing which days are the highest demand, and the area they are coming from. Last but not least is finding the distribution of the time of incoming orders to understand during which time has the biggest workload on the pickers, and see how long it takes to deploy an order.')
- #ttdm=df['Time to deploy'].value_counts().nlargest(6).index.max()
- #ttdi=df['Time to deploy'].value_counts().nlargest(6).index.min()
 
  def my_value(number):
      return ("{:,}".format(number)) # a function to format numbers to have commas in them
- from millify import millify
 
 ### Creating KPI design showing the revenue and lost sales
  asd=df.loc[df['Status'] == 'Delivered'].Amount.sum()
  asc=df.loc[df['Status'] == 'Canceled'].Amount.sum()
+### Making columns so they can be side by side
  col1, col2 = st.columns(2)
- col1.metric(label="Revenue in LBP", value=millify(asd, precision=2), delta_color="inverse")
- col2.metric(label="Lost Sales in LBP", value=millify(asc, precision=2), delta_color="inverse")
+ col1.metric(label="Revenue in LBP", value=millify(asd, precision=2), delta_color="inverse") ### total revenue
+ col2.metric(label="Lost Sales in LBP", value=millify(asc, precision=2), delta_color="inverse") ### Total loss of sales
 
- ### Setting up the graph filtering of selection
+### Setting up the selectbox for the following graphs with each graph having a small dynamic description of graph 
  App = st.selectbox('Customer Analysis',
                                      ['None','Days','Revenue Per Customer','Wait Time to Deploy','Time of Incoming Orders','Address','Average Revenue Per Day','All'])
 
@@ -464,9 +463,9 @@ def page4():
      addresss
      st.write(f'Due to the location of Diwan, most orders are coming in from Bchamoun, followed by Aramoun, and finally Khaldeh. This is due to the prime location that enables Diwan to service these 3 major areas. The graph is showing the top {slides} locations, depending on desired number')
  elif App == 'All':
-    containerca = st.container()
-    ca1,ca2,ca21 = st.columns(3)
-
+    containerca = st.container() ### Adding a container and columns so grpahs are side by side through out all graphs
+    ca1,ca2,ca21 = st.columns(3) ### using 3 columns due to having 2 the graphs over lap when 2 columns is done
+    ### Putting the graphes into the containers and their columns
     with containerca:
         with ca1:
             n_size = st.slider('Top n Customers', 0, 90, 5)
@@ -477,17 +476,17 @@ def page4():
             amc
         with ca21:
             tdc
-    containerca1 = st.container()
-    ca3,ca4,ca41 = st.columns(3)
-
+    containerca1 = st.container() ### Adding a container and columns so grpahs are side by side through out all graphs
+    ca3,ca4,ca41 = st.columns(3) ### using 3 columns due to having 2 the graphs over lap when 2 columns is done
+    ### Putting the graphes into the containers and their columns
     with containerca1:
         with ca3:
             tc
         with ca41:
             Day
-    containerca2 = st.container()
-    ca5,ca6,ca61 = st.columns(3)
-
+    containerca2 = st.container() ### Adding a container and columns so grpahs are side by side through out all graphs
+    ca5,ca6,ca61 = st.columns(3) ### using 3 columns due to having 2 the graphs over lap when 2 columns is done
+    ### Putting the graphes into the containers and their columns
     with containerca2:
         with ca5:
             slides = st.slider('Top n Locations', 0, 90, 5)
