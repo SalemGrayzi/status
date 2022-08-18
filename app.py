@@ -17,7 +17,7 @@ from millify import millify
 st.set_page_config(layout="wide")
 
 ### Importing csv file from github onto streamlit
-df= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Data.csv')
+df= pd.read_csv('https://github.com/SalemGrayzi/status/blob/main/Statuscsv.csv?raw=true')
 
 ### Filling missing values in Adress column with the mode
 df['Address'] =  df['Address'].fillna('بشامون')
