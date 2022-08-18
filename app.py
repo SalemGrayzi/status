@@ -11,15 +11,12 @@ import matplotlib.pyplot as plt
 import markdown
 from streamlit_metrics import metric, metric_row
 import time
+
+### Setting page to wide automatically to avoid it being centered
+
 st.set_page_config(layout="wide")
 
-
-#pi1, pi2 = st.columns(2) ### Adding columns to insert the picture in the middle of the screen in column 2
-
-#with pi2:
-#    st.image("https://play-lh.googleusercontent.com/qPmIH0OemtPoTXyEztnpZVW-35sEWvrw99DIX6n1sklf1mDekUxtMzyInpJlTOATsp5B",width=100)
-
-
+### Importing csv file from github onto streamlit
 df= pd.read_csv('https://raw.githubusercontent.com/SalemGrayzi/status/main/Data.csv')
 
 ### Filling missing values in Adress column with the mode
@@ -41,61 +38,66 @@ df['OnlineApp'] = df['OnlineApp'].map(
 
 ###################################### Graph to get orders per day in a year
 st.cache()
+### Graphing the day names with a certain order and text shown on graph
 Day=px.histogram(df, x= "Day Name",text_auto=True,category_orders={'Day Name':["Monday","Tuesday","Wednesday", "Thursday", "Friday", "Saturday","Sunday"]})
-Day.update_layout(title="Orders per Day in a Year",xaxis_title="Day",yaxis_title="")
+Day.update_layout(title="Orders per Day in a Year",xaxis_title="Day",yaxis_title="") ### adding more details on the graph
 
 ###################################### Graph to get number of order per driver
 st.cache()
-driver=px.histogram(df, y="Driver Name", text_auto=True)
-driver.update_layout(yaxis={'categoryorder':'total ascending'})
-driver.update_layout(title="Number of Orders per Driver",xaxis_title="",yaxis_title="Driver")
+driver=px.histogram(df, y="Driver Name", text_auto=True) ### Plotting drivers onto a histogram with no filter 
+driver.update_layout(yaxis={'categoryorder':'total ascending'}) ### plotting in ascending order
+driver.update_layout(title="Number of Orders per Driver",xaxis_title="",yaxis_title="Driver")### adding more details on the graph
 
 #################################################################### This graph was sent into its area due to filtering reasoning
-#split_size = st.slider('Top n Drivers', 0, 90, 5)
-#dfd = df.groupby(['Driver Name']).size().to_frame().sort_values([0], ascending = False).head(split_size).reset_index()
-#dfd.columns = ['Driver Name', 'count']
-#drv = px.bar(dfd, y='Driver Name', x = 'count')
+### Plotting drivers onto a histogram with no filter 
+#split_size = st.slider('Top n Drivers', 0, 90, 5) ### making a slider to be used to filter the graph
+#dfd = df.groupby(['Driver Name']).size().to_frame().sort_values([0], ascending = False).head(split_size).reset_index() ### Grouping them then using the filter to specify how many it should show
+#dfd.columns = ['Driver Name', 'count'] ### adding the columns to the values returned previously 
+#drv = px.bar(dfd, y='Driver Name', x = 'count') ### plotting the graph 
 
 ###################################### Graph to find the percent of PDA usage
 st.cache()
-vt=df['Handheld Used'].value_counts()
-vts=df['Handheld Used'].value_counts().index
-pda=go.Figure(data=[go.Pie(labels=vts, values=vt, pull=[0.2, 0])])
-pda.update_traces(textposition='inside', textinfo='percent+label')
-pda.update_layout(title="Percent of PDA Usage")
+vt=df['Handheld Used'].value_counts() ### Counting each distinct variable
+vts=df['Handheld Used'].value_counts().index ### Finding the index position of an the variable
+pda=go.Figure(data=[go.Pie(labels=vts, values=vt, pull=[0.2, 0])]) ### Plotting it in a pie chart and adding the seperate factor using pull
+pda.update_traces(textposition='inside', textinfo='percent+label') ### Adding text and percentage inside the graph
+pda.update_layout(title="Percent of PDA Usage") ### Cahnging title 
+### For dynamic text purposes 
 hp,hp1 = (df['Handheld Used'].value_counts() /
                       df['Handheld Used'].value_counts().sum()) * 100
 
 ###################################### Order status depending on which order method was used
 st.cache()
+### using seaborn to plot this 
 gh = sns.catplot(
     data=df, kind="count",
     x="Status", hue="Handheld Used",
      palette=['tab:red', 'tab:blue'], alpha=.6, height=6,order=df['Status'].value_counts().index
 )
-gh.fig.suptitle("Order Status with Usage of PDA")
-gh.set_axis_labels(x_var="Order Status", y_var="")
+gh.fig.suptitle("Order Status with Usage of PDA") ### changing the title
+gh.set_axis_labels(x_var="Order Status", y_var="") ### changing the x and y axis labels
 
 ###################################### A graph illustrating which picker is using a PDA
 st.cache()
+### using seaborn to plot this 
 pdapicker = sns.catplot(
     data=df, kind="count",
     y="PickerName", hue="Handheld Used",
      palette=['tab:blue', 'tab:red'], alpha=.6,height=6,order=df['PickerName'].value_counts().index
 )
-pdapicker.set(title ="Usage of PDA per Picker", ylabel='Picker')
+pdapicker.set(title ="Usage of PDA per Picker", ylabel='Picker') ### changing the x and y axis labels
 
 ###################################### Fidning the percentage of order status based on each picker
 st.cache()
 stpk = px.histogram(df, y="PickerName", color="Status",barnorm = "percent",hover_data=["Status"])
-stpk.update_layout(yaxis={'categoryorder':'total ascending'})
-stpk.update_layout(title="Picker's Percentage of Order Status",xaxis_title="Percentage",yaxis_title="Picker")
+stpk.update_layout(yaxis={'categoryorder':'total ascending'}) ### plotting in ascending order
+stpk.update_layout(title="Picker's Percentage of Order Status",xaxis_title="Percentage",yaxis_title="Picker") ### adding more details on the graph
 
 ###################################### Percentage of revenue based on order methods
 st.cache()
-am=df['Amount'].value_counts()
-op=df['OnlineApp'].value_counts()
-ops=df['OnlineApp'].value_counts().index
+#am=df['Amount'].value_counts()
+#op=df['OnlineApp'].value_counts()
+#ops=df['OnlineApp'].value_counts().index
 onmount=go.Figure(data=[go.Pie(labels=df['OnlineApp'], values=df.loc[df['Status'] == 'Delivered'].Amount, pull=[0.2, 0])])
 onmount.update_traces(textposition='inside', textinfo='percent+label')
 onmount.update_layout(title="Revenue of Ordering Method")
