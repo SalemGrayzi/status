@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import markdown
 from streamlit_metrics import metric, metric_row
 import time
- from millify import millify
+from millify import millify
 ### Setting page to wide automatically to avoid it being centered
 
 st.set_page_config(layout="wide")
