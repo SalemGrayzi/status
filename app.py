@@ -18,14 +18,18 @@ st.set_page_config(layout="wide")
 
 ### Importing csv file from github onto streamlit
 #df= pd.read_csv('https://github.com/SalemGrayzi/status/blob/main/Statuscsv.csv?raw=true')
-uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
 
-if uploaded_file is None:
-  df= pd.read_csv('https://github.com/SalemGrayzi/status/blob/main/Statuscsv.csv?raw=true')
-else:
-  df = pd.read_csv(uploaded_file)
-### Filling missing values in Adress column with the mode
-df['Address'] =  df['Address'].fillna('بشامون')
+###################################### tab 1
+st.cache()
+def main_page():
+  uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
+
+  if uploaded_file is None:
+    df= pd.read_csv('https://github.com/SalemGrayzi/status/blob/main/Statuscsv.csv?raw=true')
+  else:
+    df = pd.read_csv(uploaded_file)
+ ### Filling missing values in Adress column with the mode
+  df['Address'] =  df['Address'].fillna('بشامون')
 
 ###Droping columns that dont add value to the analysis
 df.drop(['Order No_','Phone No_','Receipt No','Company'], axis = 1, inplace = True)
@@ -157,9 +161,6 @@ st.cache()
 dincome = px.histogram(df, x="Day Name",y='Amount', histfunc='avg',text_auto=True,category_orders={'Day Name':["Monday","Tuesday","Wednesday", "Thursday", "Friday", "Saturday","Sunday"]})
 dincome.update_layout(title="Average Revenue Per Day",xaxis_title="Day Name",yaxis_title="Amount") ### adding more details on the graph
 
-###################################### tab 1
-st.cache()
-def main_page():
  st.cache()
  st.title('Diwan Delivery Analysis') ### Adding page title
 
