@@ -12,20 +12,19 @@ import markdown
 from streamlit_metrics import metric, metric_row
 import time
 from millify import millify
-### Setting page to wide automatically to avoid it being centered
 
+### setting page to wide automatically to avoid it being centered
 st.set_page_config(layout="wide")
+### Setting picture to dashboard and resizing it
+st.image("https://play-lh.googleusercontent.com/qPmIH0OemtPoTXyEztnpZVW-35sEWvrw99DIX6n1sklf1mDekUxtMzyInpJlTOATsp5B",width=100)
+
+### Building the HydraApp
+app = hy.HydraApp(title='Diwan')
 
 ### Importing csv file from github onto streamlit
-#df= pd.read_csv('https://github.com/SalemGrayzi/status/blob/main/Statuscsv.csv?raw=true')
+df= pd.read_csv('https://github.com/SalemGrayzi/status/blob/main/Statuscsv.csv?raw=true')
 
-uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
-
-if uploaded_file is None:
-    df= pd.read_csv('https://github.com/SalemGrayzi/status/blob/main/Statuscsv.csv?raw=true')
-else:
-    df = pd.read_csv(uploaded_file)
- ### Filling missing values in Adress column with the mode
+### Filling missing values in Adress column with the mode
 df['Address'] =  df['Address'].fillna('بشامون')
 
 ###Droping columns that dont add value to the analysis
@@ -39,29 +38,25 @@ df['Handheld Used'] = df['Handheld Used'].map(
                    {True:'Used PDA' ,False:"Didn't Use PDA"})
 df['OnlineApp'] = df['OnlineApp'].map(
                    {True:'Application' ,False:'Phone Call'})
-###################################### tab 1
-st.cache()
-def main_page():
-
 
 ### changing time created into datetime with the specified format
-  df['Time Created'] = pd.to_datetime(df['Time Created'], format='%I:%M:%S %p')
+df['Time Created'] = pd.to_datetime(df['Time Created'], format='%I:%M:%S %p')
 
-### In the bellow section it contains all the graphs made
+### In the bellow section it conatains all the graphs made
 
 ###################################### Graph to get orders per day in a year
-  st.cache()
-  ### Graphing the day names with a certain order and text shown on graph
-  Day=px.histogram(df, x= "Day Name",text_auto=True,category_orders={'Day Name':["Monday","Tuesday","Wednesday", "Thursday", "Friday", "Saturday","Sunday"]})
-  Day.update_layout(title="Orders per Day in a Year",xaxis_title="Day",yaxis_title="") ### adding more details on the graph
+st.cache()
+### Graphing the day names with a certain order and text shown on graph
+Day=px.histogram(df, x= "Day Name",text_auto=True,category_orders={'Day Name':["Monday","Tuesday","Wednesday", "Thursday", "Friday", "Saturday","Sunday"]})
+Day.update_layout(title="Orders per Day in a Year",xaxis_title="Day",yaxis_title="") ### adding more details on the graph
 
-  ###################################### Graph to get number of order per driver
-  st.cache()
-  driver=px.histogram(df, y="Driver Name", text_auto=True) ### Plotting drivers onto a histogram with no filter 
-  driver.update_layout(yaxis={'categoryorder':'total ascending'}) ### plotting in ascending order
-  driver.update_layout(title="Number of Orders per Driver",xaxis_title="",yaxis_title="Driver")### adding more details on the graph
+###################################### Graph to get number of order per driver
+st.cache()
+driver=px.histogram(df, y="Driver Name", text_auto=True) ### Plotting drivers onto a histogram with no filter 
+driver.update_layout(yaxis={'categoryorder':'total ascending'}) ### plotting in ascending order
+driver.update_layout(title="Number of Orders per Driver",xaxis_title="",yaxis_title="Driver")### adding more details on the graph
 
- #################################################################### This graph was sent into its area due to filtering reasoning
+#################################################################### This graph was sent into its area due to filtering reasoning
 ### Plotting drivers onto a histogram with no filter 
 #split_size = st.slider('Top n Drivers', 0, 90, 5) ### making a slider to be used to filter the graph
 #dfd = df.groupby(['Driver Name']).size().to_frame().sort_values([0], ascending = False).head(split_size).reset_index() ### Grouping them then using the filter to specify how many it should show
@@ -69,56 +64,58 @@ def main_page():
 #drv = px.bar(dfd, y='Driver Name', x = 'count') ### plotting the graph 
 
 ###################################### Graph to find the percent of PDA usage
-  st.cache()
-  vt=df['Handheld Used'].value_counts() ### Counting each distinct variable
-  vts=df['Handheld Used'].value_counts().index ### Finding the index position of an the variable
-  pda=go.Figure(data=[go.Pie(labels=vts, values=vt, pull=[0.2, 0])]) ### Plotting it in a pie chart and adding the seperate factor using pull
-  pda.update_traces(textposition='inside', textinfo='percent+label') ### Adding text and percentage inside the graph
-  pda.update_layout(title="Percent of PDA Usage") ### Changing title 
+st.cache()
+vt=df['Handheld Used'].value_counts() ### Counting each distinct variable
+vts=df['Handheld Used'].value_counts().index ### Finding the index position of an the variable
+pda=go.Figure(data=[go.Pie(labels=vts, values=vt, pull=[0.2, 0])]) ### Plotting it in a pie chart and adding the seperate factor using pull
+pda.update_traces(textposition='inside', textinfo='percent+label') ### Adding text and percentage inside the graph
+pda.update_layout(title="Percent of PDA Usage") ### Cahnging title 
 ### For dynamic text purposes 
-  hp,hp1 = (df['Handheld Used'].value_counts() /
+hp,hp1 = (df['Handheld Used'].value_counts() /
                       df['Handheld Used'].value_counts().sum()) * 100
 
 ###################################### Order status depending on which order method was used
-  st.cache()
+st.cache()
 ### using seaborn to plot this 
-  gh = sns.catplot(
+gh = sns.catplot(
     data=df, kind="count",
     x="Status", hue="Handheld Used",
-     palette=['tab:red', 'tab:blue'], alpha=.6, height=6,order=df['Status'].value_counts().index)
-  gh.fig.suptitle("Order Status with Usage of PDA") ### changing the title
-  gh.set_axis_labels(x_var="Order Status", y_var="") ### changing the x and y axis labels
+     palette=['tab:red', 'tab:blue'], alpha=.6, height=6,order=df['Status'].value_counts().index
+)
+gh.fig.suptitle("Order Status with Usage of PDA") ### changing the title
+gh.set_axis_labels(x_var="Order Status", y_var="") ### changing the x and y axis labels
 
 ###################################### A graph illustrating which picker is using a PDA
-  st.cache()
+st.cache()
 ### using seaborn to plot this 
-  pdapicker = sns.catplot(
+pdapicker = sns.catplot(
     data=df, kind="count",
     y="PickerName", hue="Handheld Used",
-     palette=['tab:blue', 'tab:red'], alpha=.6,height=6,order=df['PickerName'].value_counts().index)
-  pdapicker.set(title ="Usage of PDA per Picker", ylabel='Picker') ### changing the x and y axis labels
+     palette=['tab:blue', 'tab:red'], alpha=.6,height=6,order=df['PickerName'].value_counts().index
+)
+pdapicker.set(title ="Usage of PDA per Picker", ylabel='Picker') ### changing the x and y axis labels
 
 ###################################### Fidning the percentage of order status based on each picker
-  st.cache()
-  stpk = px.histogram(df, y="PickerName", color="Status",barnorm = "percent",hover_data=["Status"])
-  stpk.update_layout(yaxis={'categoryorder':'total ascending'}) ### plotting in ascending order
-  stpk.update_layout(title="Picker's Percentage of Order Status",xaxis_title="Percentage",yaxis_title="Picker") ### adding more details on the graph
+st.cache()
+stpk = px.histogram(df, y="PickerName", color="Status",barnorm = "percent",hover_data=["Status"])
+stpk.update_layout(yaxis={'categoryorder':'total ascending'}) ### plotting in ascending order
+stpk.update_layout(title="Picker's Percentage of Order Status",xaxis_title="Percentage",yaxis_title="Picker") ### adding more details on the graph
 
 ###################################### Percentage of revenue based on order methods
-  st.cache()
+st.cache()
 ### Graphing orders methods based on order being delivered
-  onmount=go.Figure(data=[go.Pie(labels=df['OnlineApp'], values=df.loc[df['Status'] == 'Delivered'].Amount, pull=[0.2, 0])]) ### Plotting it in a pie chart and adding the seperate factor using pull
-  onmount.update_traces(textposition='inside', textinfo='percent+label') ### Adding text and percentage inside the graph
-  onmount.update_layout(title="Revenue of Ordering Method") ### Changing title 
+onmount=go.Figure(data=[go.Pie(labels=df['OnlineApp'], values=df.loc[df['Status'] == 'Delivered'].Amount, pull=[0.2, 0])]) ### Plotting it in a pie chart and adding the seperate factor using pull
+onmount.update_traces(textposition='inside', textinfo='percent+label') ### Adding text and percentage inside the graph
+onmount.update_layout(title="Revenue of Ordering Method") ### Changing title 
 
 ###################################### Percentage of lost sales based on order methods
-  st.cache()
+st.cache()
 ### Graphing orders methods based on order being canceled
-  onmount2=go.Figure(data=[go.Pie(labels=df['OnlineApp'], values=df.loc[df['Status'] == 'Canceled'].Amount, pull=[0.2, 0])]) ### Plotting it in a pie chart and adding the seperate factor using pull
-  onmount2.update_traces(textposition='inside', textinfo='percent+label') ### Adding text and percentage inside the graph
-  onmount2.update_layout(title="Lost Sales of Ordering Method") ### Changing title 
+onmount2=go.Figure(data=[go.Pie(labels=df['OnlineApp'], values=df.loc[df['Status'] == 'Canceled'].Amount, pull=[0.2, 0])]) ### Plotting it in a pie chart and adding the seperate factor using pull
+onmount2.update_traces(textposition='inside', textinfo='percent+label') ### Adding text and percentage inside the graph
+onmount2.update_layout(title="Lost Sales of Ordering Method") ### Changing title 
 ### For dynamic text purposes
-  os,os1 = (df.groupby('OnlineApp')['Status'].count() /
+os,os1 = (df.groupby('OnlineApp')['Status'].count() /
                       df['OnlineApp'].value_counts().sum()) * 100
 
 #################################################################### This graph was sent into its area due to filtering reasoning
@@ -129,23 +126,23 @@ def main_page():
 #amc=px.histogram(data_frame=dfna, x='Amount', y='Name')
 
 ###################################### ORder status based on order methods
-  st.cache()
-  sto=px.histogram(df, y="Status", color="OnlineApp",text_auto=True) ### Plotting with values shown on the graph
-  sto.update_layout(title="Status of Order per Ordering Method",xaxis_title="",yaxis_title="Status of Order") ### adding more details onto the graph
+st.cache()
+sto=px.histogram(df, y="Status", color="OnlineApp",text_auto=True) ### Plotting with values shown on the graph
+sto.update_layout(title="Status of Order per Ordering Method",xaxis_title="",yaxis_title="Status of Order") ### adding more details onto the graph
 
 ###################################### Time of incoming orders in a day
-  st.cache()
-  dfds = df.groupby(['Time Created']).size().to_frame().reset_index() ### Grouping them to get count and its variables
-  dfds.columns = ['Time Created', 'count'] ### adding the columns to the values returned previously 
-  tc = px.line(dfds, x='Time Created', y= 'count') ### plotting the graph 
-  tc.update_layout(title="Time Created of Orders",xaxis_title="Time in 24 Hour Format",yaxis_title="") ### adding more details onto the graph
+st.cache()
+dfds = df.groupby(['Time Created']).size().to_frame().reset_index() ### Grouping them to get count and its variables
+dfds.columns = ['Time Created', 'count'] ### adding the columns to the values returned previously 
+tc = px.line(dfds, x='Time Created', y= 'count') ### plotting the graph 
+tc.update_layout(title="Time Created of Orders",xaxis_title="Time in 24 Hour Format",yaxis_title="") ### adding more details onto the graph
 
 ###################################### Time it takes for an order to deploy
-  st.cache()
-  dfds1 = df.groupby(['Time to deploy']).size().to_frame().reset_index() ### Grouping them to get count and its variables
-  dfds1.columns = ['Time to deploy', 'count'] ### adding the columns to the values returned previously 
-  tdc = px.line(dfds1, x='Time to deploy', y= 'count') ### plotting the graph 
-  tdc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Minutes",yaxis_title="") ### adding more details onto the graph
+st.cache()
+dfds1 = df.groupby(['Time to deploy']).size().to_frame().reset_index() ### Grouping them to get count and its variables
+dfds1.columns = ['Time to deploy', 'count'] ### adding the columns to the values returned previously 
+tdc = px.line(dfds1, x='Time to deploy', y= 'count') ### plotting the graph 
+tdc.update_layout(title="Time to Deploy an Order",xaxis_title="Time in Minutes",yaxis_title="") ### adding more details onto the graph
 
 #################################################################### This graph was sent into its area due to filtering reasoning
 ### slider for filtering in graph
@@ -155,11 +152,14 @@ def main_page():
 #addresss = px.bar(addy, y='Adress', x = 'count') ### plotting the variables
 
 ###################################### Average revenue per day
-  st.cache()
+st.cache()
 ### Graphing the day names with a certain order and text shown on graph
-  dincome = px.histogram(df, x="Day Name",y='Amount', histfunc='avg',text_auto=True,category_orders={'Day Name':["Monday","Tuesday","Wednesday", "Thursday", "Friday", "Saturday","Sunday"]})
-  dincome.update_layout(title="Average Revenue Per Day",xaxis_title="Day Name",yaxis_title="Amount") ### adding more details on the graph
+dincome = px.histogram(df, x="Day Name",y='Amount', histfunc='avg',text_auto=True,category_orders={'Day Name':["Monday","Tuesday","Wednesday", "Thursday", "Friday", "Saturday","Sunday"]})
+dincome.update_layout(title="Average Revenue Per Day",xaxis_title="Day Name",yaxis_title="Amount") ### adding more details on the graph
 
+###################################### tab 1
+st.cache()
+def main_page():
   st.title('Diwan Delivery Analysis') ### Adding page title
 
  ### Adding comments onto the home tab for understanding the dashboard
