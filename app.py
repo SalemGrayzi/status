@@ -19,7 +19,6 @@ st.set_page_config(layout="wide")
 st.image("https://play-lh.googleusercontent.com/qPmIH0OemtPoTXyEztnpZVW-35sEWvrw99DIX6n1sklf1mDekUxtMzyInpJlTOATsp5B",width=100)
 
 ### Importing csv file from github onto streamlit by default, and can be used to import dataset
-@st.cache
 with st.expander("Upload Data"):
      uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
      if uploaded_file is None:
