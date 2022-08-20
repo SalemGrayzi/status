@@ -597,8 +597,6 @@ page_names_to_funcs = {
     "Queuing Model ⌚": page5,
     "About 🤵": page6}
 
-st.image("https://play-lh.googleusercontent.com/qPmIH0OemtPoTXyEztnpZVW-35sEWvrw99DIX6n1sklf1mDekUxtMzyInpJlTOATsp5B",width=100)
-
 selected_page = st.selectbox("Select a page", page_names_to_funcs.keys())
 page_names_to_funcs[selected_page]()
 
