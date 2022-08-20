@@ -19,7 +19,6 @@ st.set_page_config(layout="wide")
 st.image("https://play-lh.googleusercontent.com/qPmIH0OemtPoTXyEztnpZVW-35sEWvrw99DIX6n1sklf1mDekUxtMzyInpJlTOATsp5B",width=100)
 
 ### Building the HydraApp
-app = hy.HydraApp(title='Diwan')
 
 ### Importing csv file from github onto streamlit
 df= pd.read_csv('https://github.com/SalemGrayzi/status/blob/main/Statuscsv.csv?raw=true')
