@@ -205,10 +205,10 @@ def main_page():
   c1,c2 = st.columns(2)
      
   head = c1.checkbox('First Few Rows') # Making a checkbox for showing df.head
- if head:
+  if head:
      st.write(df.head())
 
- if c2.checkbox('Show all graphs'): # Adding all graph into a single button to see
+  if c2.checkbox('Show all graphs'): # Adding all graph into a single button to see
     st.subheader('All Graphs')
     container1 = st.container() ### Adding a container and columns so grpahs are side by side through out all graphs
     g1, g2,g21 = st.columns(3) ### using 3 columns due to having 2 the graphs over lap when 2 columns is done
