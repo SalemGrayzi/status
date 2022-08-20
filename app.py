@@ -161,7 +161,6 @@ st.cache()
 dincome = px.histogram(df, x="Day Name",y='Amount', histfunc='avg',text_auto=True,category_orders={'Day Name':["Monday","Tuesday","Wednesday", "Thursday", "Friday", "Saturday","Sunday"]})
 dincome.update_layout(title="Average Revenue Per Day",xaxis_title="Day Name",yaxis_title="Amount") ### adding more details on the graph
 
- st.cache()
  st.title('Diwan Delivery Analysis') ### Adding page title
 
  ### Adding comments onto the home tab for understanding the dashboard
