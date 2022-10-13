@@ -18,14 +18,14 @@ st.set_page_config(layout="wide")
 ### Setting picture to dashboard and resizing it
 st.image("https://play-lh.googleusercontent.com/qPmIH0OemtPoTXyEztnpZVW-35sEWvrw99DIX6n1sklf1mDekUxtMzyInpJlTOATsp5B",width=100)
 
-d1,d2,d3=st.columns(3)
+#d1,d2,d3=st.columns(3)
 ### Importing csv file from github onto streamlit by default, and can be used to import dataset
-with d1.expander('Upload Data'):
-     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
-     if uploaded_file is None:
-        df= pd.read_csv('https://github.com/SalemGrayzi/status/blob/main/Statuscsv.csv?raw=true')
-     else:
-         df = pd.read_csv(uploaded_file)
+#with d1.expander('Upload Data'):
+#     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
+#     if uploaded_file is None:
+#        df= pd.read_csv('https://github.com/SalemGrayzi/status/blob/main/Statuscsv.csv?raw=true')
+#     else:
+#         df = pd.read_csv(uploaded_file)
 
 ### Filling missing values in Adress column with the mode
 df['Address'] =  df['Address'].fillna('بشامون')
